@@ -66,11 +66,11 @@
 
       <div class="collapse navbar-collapse" id="landing-navbar-collapse">
         <div class="navbar-nav align-items-lg-center ml-lg-4">
-          <a class="anchor-link nav-item nav-link" href="#features">Home</a>
-          <a class="anchor-link nav-item nav-link" href="#screenshots">Sobre</a>
-          <a class="anchor-link nav-item nav-link" href="#pricing">Treinamentos</a>
-          <a class="anchor-link nav-item nav-link" href="#pricing">Consultorias</a>
-          <a class="anchor-link nav-item nav-link" href="#subscribe">Contato</a>
+          <a class="anchor-link nav-item nav-link" href="#home">Inicio</a>
+          <a class="anchor-link nav-item nav-link" href="#sobre">Sobre</a>
+          <a class="anchor-link nav-item nav-link" href="#treinamento">Treinamentos</a>
+          <a class="anchor-link nav-item nav-link" href="#consultoria">Consultorias</a>
+          <a class="anchor-link nav-item nav-link" href="#contato">Contato</a>
         </div>
         <div class="navbar-nav align-items-lg-center ml-auto">
           <div class="nav-item py-2 py-lg-0 ml-lg-4">
@@ -88,13 +88,12 @@
   <!-- Header -->
   <div class="swiper-container text-white" id="landing-slider">
     <div class="swiper-wrapper">
-
-      <div class="swiper-slide jumbotron ui-hero ui-mh-100vh ui-bg-cover ui-bg-overlay-container overflow-hidden" style="background-image: url('assets/img/bg/21.jpg');">
+       
+      <div class="swiper-slide jumbotron ui-hero ui-mh-100vh ui-bg-cover ui-bg-overlay-container overflow-hidden" style="background-image: url('images/engrenagem.jpg');">
         <div class="ui-bg-overlay bg-dark opacity-50"></div>
-
+        <div id="home" class="landing-block">
         <div class="container-fluid justify-content-center px-lg-5">
           <div class="row justify-content-center w-100 pt-3">
-
             <div class="col-lg-7 col-xl-6 text-lg-left text-center my-5">
               <h1 class="display-3 font-secondary font-weight-bold mb-4">
                 Os treinamentos que você precisa estão aqui!
@@ -106,6 +105,7 @@
                 <button type="button" class="landing-btn btn btn-lg rounded-pill btn-primary">Saiba mais</button>
               </div>
             </div>
+          
 
             <div class="col-lg-5 text-center pl-lg-5">
               <div class="ui-presentation-right ui-device macbook float-left rounded">
@@ -119,6 +119,7 @@
 
           </div>
         </div>
+      </div>
       </div>
 
       <div class="swiper-slide jumbotron ui-hero ui-bg-cover ui-bg-overlay-container py-0 m-0" style="background-image: url('assets/img/bg/20.jpg');">
@@ -220,10 +221,11 @@
     <div class="landing-separator-stripes my-4"></div>
 
     <!-- Block -->
+    <div id="sobre" class="landing-block">
     <div class="landing-block pt-5">
       <div class="container px-3">
         <div class="row justify-content-between align-items-center">
-
+        
           <div class="col-lg-5 col-xl-4 text-lg-left text-center mx-auto">
             <div class="text-lighter text-tiny font-weight-bold mb-3">INTRODUÇÃO</div>
             <h1 class="display-4 font-secondary font-weight-semibold mb-4">Conheça um pouco sobre a Tópico!</h1>
@@ -232,6 +234,7 @@
             </p>
           </div>
 
+
           <div class="col-lg-7 col-xl-7 mt-5 mt-lg-0">
             <div id="landing-video" data-type="youtube" data-video-id="bTqVqk7FSmY" class="w-100"></div>
           </div>
@@ -239,18 +242,19 @@
         </div>
       </div>
     </div>
+  </div>
     <!-- / Block -->
 
   </div>
 
   <!-- Block -->
-  <div id="features" class="landing-block">
+  <div id="treinamento" class="landing-block">
     <div class="container px-3">
 
       <div class="col-md-10 col-lg-8 col-xl-7 text-center p-0 mx-auto">
         <div class="text-lighter text-tiny font-weight-bold mb-3">NOSSOS SERVIÇOS</div>
         <h1 class="display-4 font-secondary font-weight-semibold mb-4">
-          Conheça mais sobre nosso treinamentos e consultorias
+          Conheça mais sobre nossos treinamentos.
         </h1>
         <div class="lead text-muted mb-5">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed interdum lorem, non hendrerit lectus. Suspendisse ultricies lobortis vulputate.
@@ -323,6 +327,86 @@
     </div>
   </div>
   <!-- / Block -->
+    <!-- Block -->
+      <div id="consultoria" class="landing-block">
+        <div class="container px-3">
+
+          <div class="col-md-10 col-lg-8 col-xl-7 text-center p-0 mx-auto">
+            <div class="text-lighter text-tiny font-weight-bold mb-3">NOSSOS SERVIÇOS</div>
+            <h1 class="display-4 font-secondary font-weight-semibold mb-4">
+              Conheça mais sobre nossas consultorias
+            </h1>
+            <div class="lead text-muted mb-5">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed interdum lorem, non hendrerit lectus. Suspendisse ultricies lobortis vulputate.
+            </div>
+          </div>
+
+          <hr class="landing-separator border-light mx-auto">
+
+          <div class="row text-center">
+            <div class="col-md-4 mt-5">
+              <div class="display-4 text-primary mx-auto mb-4">
+                <span class="lnr lnr-star"></span>
+              </div>
+              <h5>Projetos Mecânicos</h5>
+              <div class="text-muted small">
+                Lorem ipsum dolor sit amet, ius virtute suscipit te. Ius prima euismod consequat eu, cu quo alii scriptorem
+              </div>
+            </div>
+            <div class="col-md-4 mt-5">
+              <div class="display-4 text-primary mx-auto mb-4">
+                <span class="lnr lnr-picture"></span>
+              </div>
+              <h5>Metrologia Dimensional</h5>
+              <div class="text-muted small">
+                Etiam vivendo eu sea, purto ponderum mediocritatem at pro. Ex tantas invenire dissentiunt mea.
+              </div>
+            </div>
+            <div class="col-md-4 mt-5">
+              <div class="display-4 text-primary mx-auto mb-4">
+                <span class="lnr lnr-calendar-full"></span>
+              </div>
+              <h5>Leitura e interpretação de desenhos mecânicos</h5>
+              <div class="text-muted small">
+                Iuvaret deleniti vulputate nec ne, id vix lucilius legendos deseruisse, harum honestatis cum te.
+              </div>
+            </div>
+            <div class="col-md-4 mt-5">
+              <div class="display-4 text-primary mx-auto mb-4">
+                <span class="lnr lnr-camera"></span>
+              </div>
+              <h5>Materiais e tratamentos térmicos</h5>
+              <div class="text-muted small">
+                Praesent massa quam, luctus et efficitur congue, aliquam quis quam. In tellus quam, ornare et consectetur ut, ullamcorper vitae nunc.
+              </div>
+            </div>
+            <div class="col-md-4 mt-5">
+              <div class="display-4 text-primary mx-auto mb-4">
+                <span class="lnr lnr-pie-chart"></span>
+              </div>
+              <h5>Torneamento convencional e CNC</h5>
+              <div class="text-muted small">
+                Curabitur rutrum eleifend urna, sit amet iaculis metus consequat at. Pellentesque id accumsan leo.
+              </div>
+            </div>
+            <div class="col-md-4 mt-5">
+              <div class="display-4 text-primary mx-auto mb-4">
+                <span class="lnr lnr-layers"></span>
+              </div>
+              <h5>Fresamento convencional e CNC</h5>
+              <div class="text-muted small">
+                Curabitur tristique in elit in fermentum. Sed pellentesque ullamcorper risus pellentesque finibus.
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-5">
+            <button type="button" class="landing-btn btn btn-primary btn-lg">Saiba mais</button>
+          </div>
+
+        </div>
+      </div>
+      <!-- / Block -->
 
   
   
@@ -509,7 +593,7 @@
   <!-- Block -->
   <div class="landing-block bg-light">
     <div class="container px-3">
-
+      <div id="contato" class="landing-block">
       <div class="col-md-10 col-lg-8 col-xl-7 text-center p-0 mx-auto">
         <h1 class="display-4 font-secondary font-weight-semibold">
           O EQUIPE TÉCNICA
@@ -548,6 +632,7 @@
       </div>
 
     </div>
+  </div>
   </div>
   <!-- / Block -->
 
