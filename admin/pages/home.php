@@ -3,7 +3,7 @@
 <html lang="pt" class="default-style">
 
 <head>
-  <title>Dashboard 1 - Dashboards - Appwork</title>
+  <title>ADMIN - HOME - Tópico Treinamentos</title>
 
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
