@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" class="default-style">
+<html lang="pt" class="default-style">
 
 <head>
   <title>LOGIN - TOPICO</title>
@@ -67,7 +67,7 @@
 
     <div class="authentication-inner py-5">
 
-      <div class="card">
+      <div class="card" style="background:url('../images/img_bg.png');border:1px solid #fff;color:#fff;">
         <div class="p-4 p-sm-5">
           <!-- Logo -->
           <div class="d-flex justify-content-center align-items-center pb-2 mb-4" >
@@ -76,27 +76,90 @@
           </div>
           <!-- / Logo -->
 
-          <h5 class="text-center text-muted font-weight-normal mb-4">Login to Your Account</h5>
+          <h5 class="text-center font-weight-normal mb-4" style="color:#fff;">Faça login na sua conta!</h5>
 
           <!-- Form -->
-          <form>
+          <form action="config/login.php" method="post">
+            <?php 
+          error_reporting(0);
+          $erro = $_GET['erro'];
+          switch ($erro) {
+            case 1:
+              echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      Usuário ou senha inválido!
+                    </div>";
+              break;
+            case 2:
+              echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      Usuário ou senha inválido!
+                    </div>";
+              break;
+            case 3:
+              echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      Você precisa estar logado!
+                    </div>";
+              break;
+            case 4:
+              echo "<div id='erro' class='alert alert-dark-warning alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      Você foi desconectado!
+                    </div>";
+              break;
+            case 5:
+              echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      Senha alterada com sucesso
+                    </div>";
+              break;
+            case 6:
+              echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      Usuário ou senha inválido!
+                    </div>";
+              break;
+            case 7:
+              echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      Cadastro Realizado com Sucesso
+                    </div>";
+              break;
+            case 8:
+              echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      Erro ao cadastrar usuario
+                    </div>";
+              break;
+            case 9:
+              echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                      <button type='button' class='close' onclick='hide()'>&times;</button>
+                      CPF já esta cadastrado no SmartTrilha, Recupere sua senha!
+                    </div>";
+              break;
+            default:
+              # code...
+              break;
+          }
+      ?>
             <div class="form-group">
               <label class="form-label">Email</label>
-              <input type="text" class="form-control">
+              <input type="email" class="form-control" name="usuario" placeholder="Digite um email" required>
             </div>
             <div class="form-group">
               <label class="form-label d-flex justify-content-between align-items-end">
-                <div>Password</div>
-                <a href="javascript:void(0)" class="d-block small">Forgot password?</a>
+                <div>Senha</div>
+                <a href="javascript:void(0)" class="d-block small">Esqueceu a senha?</a>
               </label>
-              <input type="password" class="form-control">
+              <input type="password" class="form-control" name="senha" placeholder="Digite sua senha" required>
             </div>
             <div class="d-flex justify-content-between align-items-center m-0">
               <label class="custom-control custom-checkbox m-0">
                 <input type="checkbox" class="custom-control-input">
-                <span class="custom-control-label">Remember me</span>
+                <span class="custom-control-label">Lembrar-me</span>
               </label>
-              <button type="button" class="btn btn-primary">Sign In</button>
+              <button type="submit" class="btn btn-primary">Login</button>
             </div>
           </form>
           <!-- / Form -->
@@ -104,7 +167,7 @@
         </div>
         <div class="card-footer py-3 px-4 px-sm-5">
           <div class="text-center text-muted">
-            Don't have an account yet? <a href="javascript:void(0)">Sign Up</a>
+            
           </div>
         </div>
       </div>
