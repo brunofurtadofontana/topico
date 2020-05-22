@@ -1,3 +1,14 @@
+<?php
+  session_start();
+  include("../config/verifica.php"); //Verifica a sessão esta ativa
+  include("../config/conexao.php"); //Importa conexão com banco de dados
+  $name = $_SESSION['LOGIN_USUARIO'];
+  $res = mysqli_query($con,"SELECT usuario_id, usuario_email from usuario WHERE usuario_email = '$name' "); //Consulta se o email da SESSION é o mesmo do usuario que esta logado
+  $showID = mysqli_fetch_assoc($res);
+  $id = $showID['usuario_id']; //Pega o id do usuario logado
+  $nome = $showID['usuario_email'];
+
+?>
 <!DOCTYPE html>
 
 <html lang="pt" class="default-style">
