@@ -80,7 +80,63 @@
               Página Sobre
               <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">Today is Tuesday, 8 February 2018</small></div>
             </h4>
-
+            <hr>
+             <form>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Descrição</label>
+                  <textarea type="text" class="form-control" name="titulo" id="formGroupExampleInput" placeholder="Descrição"></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="formGroupExampleInput2">Missão</label>
+                  <textarea type="text" class="form-control" name="missao" id="formGroupExampleInput" placeholder="Missão"></textarea> 
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput2">Visão</label>
+                  <textarea type="text" class="form-control" name="visao" id="formGroupExampleInput" placeholder="Visão"></textarea> 
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput2">Valoes</label>
+                  <textarea type="text" class="form-control" name="valores" id="formGroupExampleInput" placeholder="Valores"></textarea> 
+                </div>
+                <label for="formGroupExampleInput2">Imagem</label>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="file[]" id="customFile" multiple>
+                  <label class="custom-file-label" for="customFile">Escolha uma ou mais imagem</label>
+                </div>
+                <br>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div> 
+              </form>
+              <hr>
+              <h2>Dados cadastrados</h2>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Descrição</th>
+                      <th scope="col">Missão</th>
+                      <th scope="col">Visão</th>
+                      <th scope="col">Valores</th>
+                      <th scope="col">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>mark@gmail.com</td>
+                      <td>(49)92831-1234</td>
+                      <td>Palmitos</td>
+                      <td>Chapecó</td>
+                      <td>
+                        <i class="sidenav-icon ion ion-md-eye"></i>
+                        <i class="sidenav-icon ion ion-md-create"></i>
+                        <i class="sidenav-icon ion ion-md-trash"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
             
 
           </div>

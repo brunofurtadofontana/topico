@@ -77,43 +77,56 @@
           <div class="container-fluid flex-grow-1 container-p-y">
 
             <h4 class="font-weight-bold py-3 mb-4">
-              Gerenciar usuários
+              Gerenciar Equipe de profissionais
               <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">Today is Tuesday, 8 February 2018</small></div>
             </h4>
-            <div class="col-12 col-md-3 px-0 pb-2">
+             <div class="col-12 col-md-3 px-0 pb-2">
                 <button type="button" class="btn btn-primary rounded-pill d-block"  data-toggle="modal" data-target="#exampleModal">
                 <span class="ion ion-md-add"></span>&nbsp; Add Novo</button>           
-            </div> 
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Data Cadastro</th>
-                  <th scope="col">Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>mark@gmail.com</td>
-                  <td>20/06/2020</td>
-                  <td>
-                    <i class="sidenav-icon ion ion-md-eye"></i>
-                    <i class="sidenav-icon ion ion-md-create"></i>
-                    <i class="sidenav-icon ion ion-md-trash"></i>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- Modal Add novo-->
+            </div>  
+             <div class="col-sm-6 col-xl-4">
+                <div class="card mb-4">
+                  <div class="w-100">
+                    <a href="../pages/detalheEvento.php?id=<?php echo $idEven;?>" class="card-img-top d-block ui-rect-60 ui-bg-cover" style="background-image: url('../config/uploads/8.jpg')">
+                      <div class="d-flex justify-content-between align-items-end ui-rect-content p-3">
+                        <div class="flex-shrink-1">                   
+                        </div>
+                        <div class="text-big">
+                          <div class="badge badge-dark font-weight-bold">MECANICA</div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="mb-3"><a href="../pages/detalheEvento.php?id" class="text-body">LUCAS SOCCOL</a></h5>
+                    <p class="text-muted mb-3">Descrição...</p>
+                    
+                    <div class="media">
+                      <div class="media-body">
+                        <a href="" title="Editar">
+                              <i class="lnr lnr-pencil"> </i>
+                              </a>
+                              <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $idEven; ?>" title="Excluir">
+                                <i class="lnr lnr-trash"> </i>
+                              </a>
+                              <a href=""  title="Detalhes">
+                                <i class="lnr lnr-eye"> </i>
+                              </a>
+                      </div>
+                      <div class="text-muted small">
+                        <i class="ion ion-md-time text-primary"></i>
+                        <span>10/06/2020</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+              <!-- Modal Add novo-->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Adicionar usuário</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Adicionar profissional</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -126,23 +139,20 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                  <label for="formGroupExampleInput2">Email</label>
-                                  <input type="email" class="form-control" name="email" id="formGroupExampleInput2" placeholder="Email">
+                                  <label for="formGroupExampleInput2">Especialidade</label>
+                                  <input type="text" class="form-control" name="especialidade" id="formGroupExampleInput2" placeholder="Especialidade">
                                 </div>
-                                <!-- <div class="form-group">
-                                  <label for="formGroupExampleInput2">Link</label>
-                                  <input type="text" class="form-control" name="link" id="formGroupExampleInput2" placeholder="Link: http://topicotreinamentos.com.br/curso">
-                                </div> -->
+                          
                                 <div class="form-group">
-                                  <label for="formGroupExampleInput2">Senha</label>
-                                  <input type="password" class="form-control" name="senha" id="formGroupExampleInput2" placeholder="Senha">
+                                  <label for="formGroupExampleInput2">Descrição</label>
+                                  <input type="text" class="form-control" name="desc" id="formGroupExampleInput2" placeholder="Descrição sobre">
                                 </div>
-                                <div class="form-group">
-                                  <label for="formGroupExampleInput2">Confirmar Senha</label>
-                                  <input type="password" class="form-control" name="senha" id="formGroupExampleInput2" placeholder="Senha">
+                                <label for="formGroupExampleInput2">Imagem</label>
+                                <div class="custom-file">
+                                  
+                                  <input type="file" class="custom-file-input" id="customFile">
+                                  <label class="custom-file-label" for="customFile">Escolha uma imagem</label>
                                 </div>
-                               
-                                
                                  
                               </form>
                         </div>

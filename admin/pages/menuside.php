@@ -44,6 +44,11 @@
             </a>
           </li>
           <li class="sidenav-item">
+            <a href="equipe.php" class="sidenav-link"><i class="sidenav-icon ion ion-md-person"></i>
+              <div>Equipe Técnica</div>
+            </a>
+          </li>
+          <li class="sidenav-item">
             <a href="contato.php" class="sidenav-link"><i class="sidenav-icon ion ion-ios-contacts"></i>
               <div>Contato</div>
             </a>

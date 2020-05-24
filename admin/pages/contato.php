@@ -80,9 +80,77 @@
               Página Contato
               <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">Today is Tuesday, 8 February 2018</small></div>
             </h4>
-
-            
-
+            <hr>
+            <form action="" method="post">
+              <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="formGroupExampleInput">Email Contato</label>
+                <input type="email" class="form-control" name="email" id="formGroupExampleInput" placeholder="Email">
+              </div>
+              <div class="form-group col-md-12">
+                <label for="formGroupExampleInput2">Telefone Contato</label>
+                <input type="text" class="form-control" name="telefone" id="formGroupExampleInput2" placeholder="Telefone">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="formGroupExampleInput2">Rua</label>
+                <input type="text" class="form-control" name="rua" id="formGroupExampleInput2" placeholder="Rua.">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="formGroupExampleInput2">Cidade</label>
+                <input type="text" class="form-control" name="cidade" id="formGroupExampleInput2" placeholder="Cidade">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="formGroupExampleInput2">Estado</label>
+                <input type="text" class="form-control" name="estado" id="formGroupExampleInput2" placeholder="Estado" value="Santa Catarina">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="formGroupExampleInput2">Latitude</label>
+                <input type="text" class="form-control" name="lat" id="formGroupExampleInput2" placeholder="Latitude">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="formGroupExampleInput2">Longitude</label>
+                <input type="text" class="form-control" name="long" id="formGroupExampleInput2" placeholder="Longitude">
+              </div>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+             </div>
+               
+            </form>
+            <hr>
+            <h2>Dados cadastrados</h2>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Telefone</th>
+                  <th scope="col">Rua</th>
+                  <th scope="col">Cidade</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Latitude</th>
+                  <th scope="col">Longitude</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>mark@gmail.com</td>
+                  <td>(49)92831-1234</td>
+                  <td>Palmitos</td>
+                  <td>Chapecó</td>
+                  <td>Santa Catarina</td>
+                  <td>3123123123</td>
+                  <td>-21313123</td>
+                  <td>
+                    <i class="sidenav-icon ion ion-md-eye"></i>
+                    <i class="sidenav-icon ion ion-md-create"></i>
+                    <i class="sidenav-icon ion ion-md-trash"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h5>Mapa</h5>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113682.00245365084!2d-52.71584295093236!3d-27.075551945204325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e4b5c94098efa5%3A0x6b810ae0d4ebfb6a!2zQ2hhcGVjw7MsIFND!5e0!3m2!1spt-BR!2sbr!4v1590360649398!5m2!1spt-BR!2sbr" width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
           </div>
           <!-- / Content -->
 
