@@ -222,20 +222,35 @@
 
     <!-- Block -->
     <div id="sobre" class="landing-block">
-    <div class="landing-block pt-5">
-      <div class="container px-3">
+    <div class="landing-block pt-3">
+      <div class="container px-6">
         <div class="row justify-content-between align-items-center">
         
-          <div class="col-lg-5 col-xl-4 text-lg-left text-center mx-auto">
-            <div class="text-lighter text-tiny font-weight-bold mb-3">INTRODUÇÃO</div>
-            <h1 class="display-4 font-secondary font-weight-semibold mb-4">Conheça um pouco sobre a Tópico!</h1>
+          <div class="col-lg-6 col-xl-5 text-lg-left text-center mx-auto">
+                    
+            <h1 class="display-6 font-secondary font-weight-semibold mb-6">Missão</h1>
             <p class="text-muted">
-              Lorem ipsum dolor sit amet, ad eam consul vituperata. Cum assum inimicus an, his ne liber aeterno debitis. Te his iudico tollit efficiendi.
+              Promover a inovação das industrias metalmecânicas de forma eficiente e sustentável, valorizando o desenvolvimento humano e tecnológico
             </p>
+
+            <h1 class="display-6 font-secondary font-weight-semibold mb-6">Visão</h1>
+            <p class="text-muted">
+              Consolidar-se como uma instituição de excelência em consultoria e treinamentos técnicos, fundamentada na valorização profissional.
+            </p>
+
+            <h1 class="display-6 font-secondary font-weight-semibold mb-6">Valores</h1>
+              <ul class="text-muted">  
+                <li class="text-muted">Ética</li>
+                <li class="text-muted">Inovação</li>
+                <li class="text-muted">Credibilidade</li>
+                <li class="text-muted">Comportamento</li>
+                <li class="text-muted">Responsabilidade Social</li>
+              </ul>
+          
           </div>
 
 
-          <div class="col-lg-7 col-xl-7 mt-5 mt-lg-0">
+          <div class="col-lg-6 col-xl-6 mt-4 mt-lg-0">
             <div id="landing-video" data-type="youtube" data-video-id="bTqVqk7FSmY" class="w-100"></div>
           </div>
 
