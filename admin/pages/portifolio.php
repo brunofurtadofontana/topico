@@ -77,7 +77,7 @@
           <div class="container-fluid flex-grow-1 container-p-y">
 
             <h4 class="font-weight-bold py-3 mb-4">
-              Banner Rotativo inicial
+              Portfólio
               <div class="text-muted text-tiny mt-1"><small class="font-weight-normal"><?php echo date("F j, Y, g:i a");  ?></small></div>
             </h4>
             <div class="col-12 col-md-3 px-0 pb-2">
@@ -126,7 +126,7 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Adicionar Banner</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Adicionar Novo</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -135,7 +135,7 @@
                             <form>
                                 <div class="form-group">
                                   <label for="formGroupExampleInput">Título</label>
-                                  <input type="text" class="form-control" name="titulo" id="formGroupExampleInput" placeholder="Título do banner">
+                                  <input type="text" class="form-control" name="titulo" id="formGroupExampleInput" placeholder="Título do portfólio">
                                 </div>
                                 <div class="form-group">
                                   <label for="formGroupExampleInput2">Descrição</label>

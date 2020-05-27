@@ -19,13 +19,13 @@
             </a>
           </li>
           <li class="sidenav-item">
-            <a href="banner.php" class="sidenav-link"><i class="sidenav-icon ion ion-md-images"></i>
-              <div>Banner Rotativo</div>
+            <a href="inicio.php" class="sidenav-link"><i class="sidenav-icon ion ion-md-home"></i>
+              <div>Página inicial</div>
             </a>
           </li>
           <li class="sidenav-item">
-            <a href="inicio.php" class="sidenav-link"><i class="sidenav-icon ion ion-md-home"></i>
-              <div>Inicio</div>
+            <a href="portifolio.php" class="sidenav-link"><i class="sidenav-icon ion ion-md-images"></i>
+              <div>Portifólio</div>
             </a>
           </li>
           <li class="sidenav-item">
