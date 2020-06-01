@@ -10,8 +10,8 @@ if(isset($_POST['gravar']) && isset($_FILES['imagem'])){
    $temp = $file['tmp_name'];
    $filename = $file['name'];
  
-   $largura_max	= 800;
-   $altura_max	= 630;
+   $largura_max	= 1300;
+   $altura_max	= 800;
    // arquivo que contém a função
    require ('resize2.php');
    // funcao que redimensionará a imagem
