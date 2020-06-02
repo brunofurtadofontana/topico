@@ -1,9 +1,10 @@
+<?php include("../config/conexao.php"); ?>
 <!DOCTYPE html>
 
 <html lang="pt" class="default-style">
 
 <head>
-  <title>Dashboard 1 - Dashboards - Appwork</title>
+  <title>Sobre empresa - Tópico treinamentos</title>
 
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
@@ -81,10 +82,10 @@
               <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">Today is Tuesday, 8 February 2018</small></div>
             </h4>
             <hr>
-             <form>
+             <form action="../config/funcoes.php?code=10" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="formGroupExampleInput">Descrição</label>
-                  <textarea type="text" class="form-control" name="titulo" id="formGroupExampleInput" placeholder="Descrição"></textarea>
+                  <textarea type="text" class="form-control" name="desc" id="formGroupExampleInput" placeholder="Descrição"></textarea>
                 </div>
                 
                 <div class="form-group">
@@ -101,7 +102,7 @@
                 </div>
                 <label for="formGroupExampleInput2">Imagem</label>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="file[]" id="customFile" multiple>
+                  <input type="file" class="custom-file-input" name="files[]" id="customFile" multiple>
                   <label class="custom-file-label" for="customFile">Escolha uma ou mais imagem</label>
                 </div>
                 <br>
@@ -119,22 +120,35 @@
                       <th scope="col">Missão</th>
                       <th scope="col">Visão</th>
                       <th scope="col">Valores</th>
+                      <th scope="col">Imagens</th>
                       <th scope="col">Ações</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php
+                        $qr = mysqli_query($con,"select *from paginasobre")or die(mysqli_error($con));
+                        while($show=mysqli_fetch_assoc($qr)){
+                          $id = $show['sobre_id'];
+                          $desc = $show['sobre_descricao'];
+                          $missao = $show['sobre_missao'];
+                          $visao = $show['sobre_visao'];
+                          $valores = $show['sobre_valores'];
+
+                    ?>
                     <tr>
-                      <th scope="row">1</th>
-                      <td>mark@gmail.com</td>
-                      <td>(49)92831-1234</td>
-                      <td>Palmitos</td>
-                      <td>Chapecó</td>
+                      <th scope="row"><?php echo $id; ?></th>
+                      <td><?php echo $desc; ?></td>
+                      <td><?php echo $missao; ?></td>
+                      <td><?php echo $visao; ?></td>
+                      <td><?php echo $valores; ?></td>
+                      <td>Imagens()</td>
                       <td>
                         <i class="sidenav-icon ion ion-md-eye"></i>
                         <i class="sidenav-icon ion ion-md-create"></i>
                         <i class="sidenav-icon ion ion-md-trash"></i>
                       </td>
                     </tr>
+                  <?php } ?>
                   </tbody>
                 </table>
             

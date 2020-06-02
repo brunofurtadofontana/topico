@@ -173,7 +173,7 @@
                   </div>
                 </div>
               </div> 
-              <!-- Modal UPDATE EDITAR Banner-->
+              <!-- Modal Delete Banner-->
                     <div class="modal fade" id="myModalDelete<?php if($idBanner==$idBanner)echo $idBanner;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -194,8 +194,8 @@
                           </div>
                         </div>
                       </div>
-                    </div>  <!-- modal update -->
-              <!-- Modal Deletar Banner-->
+                    </div>  <!-- modal Delete -->
+              <!-- Modal Editar Banner-->
                     <div class="modal fade" id="myModalUpdate<?php if($idBanner==$idBanner)echo $idBanner;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                       <div class="modal-content">
@@ -206,7 +206,7 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                            <form action="../config/funcoes.php?code=4" method="post" enctype="multipart/form-data">
+                            <form action="../config/funcoes.php?code=6&id=<?php echo $idBanner; ?>" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                   <label for="formGroupExampleInput">Título</label>
                                   <input type="text" class="form-control" name="titulo" value="<?php echo $titulo ?>" id="formGroupExampleInput" placeholder="Título do banner"required>
@@ -221,7 +221,7 @@
                                 </div>
                                 <label for="formGroupExampleInput2">Imagem</label>
                                 <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="customFile" value="<?php echo $img ?>"name="imagem" required>
+                                  <input type="file" class="custom-file-input" id="customFile" name="imagem" required>
                                   <label class="custom-file-label" for="customFile">Escolha uma imagem</label>
                                 </div>
                         </div>
@@ -232,7 +232,7 @@
                          </form>
                       </div>
                     </div>
-                    </div>  <!-- modal delete -->
+                    </div>  <!-- modal Editar -->
                 <?php } //FIM DO LAÇO QUE RETORNA DADOS DA TABELA BANNERPRINCIPAL ?>
               <!-- Modal Add novo Banner-->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
