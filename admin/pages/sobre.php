@@ -76,6 +76,47 @@
 
           <!-- Content -->
           <div class="container-fluid flex-grow-1 container-p-y">
+             <?php 
+              error_reporting(0);
+              $erro = $_GET['error'];
+              switch ($erro) {
+                case 1:
+                  echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Cadastrado com sucesso!
+                        </div>";
+                  break;
+                  case 2:
+                    echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Algo errado aconteceu.
+                        </div>";
+                    break;
+                  case 3:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo atualizado com sucesso!
+                        </div>";
+                    break;
+                  case 4:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo Deletado com sucesso!
+                        </div>";
+                    break;
+                  default:
+                    # code...
+                    break;
+                }
+            ?>  
 
             <h4 class="font-weight-bold py-3 mb-4">
               Página Sobre
@@ -121,7 +162,7 @@
                       <th scope="col">Visão</th>
                       <th scope="col">Valores</th>
                       <th scope="col">Imagens</th>
-                      <th scope="col">Ações</th>
+                      <th scope="col" style="width:10%;">Ações</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -133,6 +174,10 @@
                           $missao = $show['sobre_missao'];
                           $visao = $show['sobre_visao'];
                           $valores = $show['sobre_valores'];
+                       
+                        $totalImagens = mysqli_query($con,"select count(sobreImg_id) as total from  paginasobre_img where paginaSobre_sobre_id = $id")or die(mysqli_error($con));
+                        $count = mysqli_fetch_assoc($totalImagens);
+                        $count = $count['total'];
 
                     ?>
                     <tr>
@@ -141,13 +186,35 @@
                       <td><?php echo $missao; ?></td>
                       <td><?php echo $visao; ?></td>
                       <td><?php echo $valores; ?></td>
-                      <td>Imagens()</td>
+                      <td>Imagens(<?php echo $count ?>)</td>
                       <td>
                         <i class="sidenav-icon ion ion-md-eye"></i>
                         <i class="sidenav-icon ion ion-md-create"></i>
-                        <i class="sidenav-icon ion ion-md-trash"></i>
+                        <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>"  ><i class="sidenav-icon ion ion-md-trash"></i></a>
                       </td>
                     </tr>
+                    <!-- Modal Delete Banner-->
+                    <div class="modal fade" id="myModalDelete<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Deletar Banner</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza que deseja deletar <b><?php echo $id ?></b> ?
+                          </div>
+                          <div class="modal-footer">
+                            <form action="../config/funcoes.php?code=11&id=<?php echo $id; ?>" method="post">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Deletar</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  <!-- modal Delete -->
                   <?php } ?>
                   </tbody>
                 </table>

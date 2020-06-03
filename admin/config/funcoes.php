@@ -258,12 +258,28 @@
     	if(empty($error)){
     		echo "Success";
            
-            header("Location:../pages/sobre.php?error=3");
+            header("Location:../pages/sobre.php?error=1");
+    	}else{
+    		header("Location:../pages/sobre.php?error=2");
     	}
     }
 			break;
 		case 11://Remover sobre
-			# code...
+			$id = $_GET['id'];
+			$get = mysqli_query($con,"select * from paginasobre_img where paginaSobre_sobre_id = '$id' ")or die(mysqli_error($con));
+			while($show = mysqli_fetch_assoc($get)):
+			$idImg = $show['sobreImg_id'];
+			$titulo = $show['sobreImg_nome'];
+			$del = mysqli_query($con,"delete from paginasobre_img where sobreImg_id = $idImg")or die(mysqli_error($con));
+				unlink('uploads/'.$titulo);
+			endwhile;
+
+			
+			$res = mysqli_query($con,"Delete from paginasobre WHERE sobre_id = '$id' ")or die(mysqli_error($con));
+					if($res){
+						
+						echo header("location:../pages/sobre.php?error=4");
+					}else echo header("location:../pages/sobre.php?error=2");
 			break;
 		case 12://Editar sobre
 			# code...
