@@ -189,7 +189,7 @@
                       <td>Imagens(<?php echo $count ?>)</td>
                       <td>
                         <i class="sidenav-icon ion ion-md-eye"></i>
-                        <i class="sidenav-icon ion ion-md-create"></i>
+                        <a href=""  data-toggle="modal" data-target="#myModalUpdate<?php echo $id; ?>"  ><i class="sidenav-icon ion ion-md-create"></i></a>
                         <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>"  ><i class="sidenav-icon ion ion-md-trash"></i></a>
                       </td>
                     </tr>
@@ -215,6 +215,52 @@
                         </div>
                       </div>
                     </div>  <!-- modal Delete -->
+                    <!-- Modal UPDATE Banner-->
+                    <div class="modal fade" id="myModalUpdate<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Atualizar Registro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                              <form action="../config/funcoes.php?code=12&id=<?php echo $id; ?>" method="post" enctype="multipart/form-data">
+                          <div class="form-group">
+                            <label for="formGroupExampleInput">Descrição</label>
+                            <textarea type="text" class="form-control" name="desc" id="formGroupExampleInput" placeholder="Descrição" required><?php echo $desc; ?></textarea>
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="formGroupExampleInput2">Missão</label>
+                            <textarea type="text" class="form-control" name="missao" id="formGroupExampleInput" placeholder="Missão" required><?php echo $missao; ?></textarea> 
+                          </div>
+                          <div class="form-group">
+                            <label for="formGroupExampleInput2">Visão</label>
+                            <textarea type="text" class="form-control" name="visao" id="formGroupExampleInput" placeholder="Visão" required><?php echo $visao; ?></textarea> 
+                          </div>
+                          <div class="form-group">
+                            <label for="formGroupExampleInput2">Valoes</label>
+                            <textarea type="text" class="form-control" name="valores" id="formGroupExampleInput" placeholder="Valores" required><?php echo $valores; ?></textarea> 
+                          </div>
+                          <label for="formGroupExampleInput2">Imagem</label>
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="files[]" id="customFile" multiple required="required">
+                            <label class="custom-file-label" for="customFile">Escolha uma ou mais imagem</label>
+                          </div>
+                          <br>
+                        
+                          </div>
+                          <div class="modal-footer">
+                            
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  <!-- modal UPDATE -->
                   <?php } ?>
                   </tbody>
                 </table>

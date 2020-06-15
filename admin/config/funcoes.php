@@ -244,7 +244,7 @@
                                                       paginaSobre_sobre_id)
                  									  VALUES('$file_name',
                  											  '$file_type',
-                                                              '$maxId')")or die(mysql_error());
+                                                              '$maxId')")or die(mysqli_error($con));
 
 
                 // mysql_query("INSERT INTO fotos(titulo,FILE_NAME,FILE_SIZE,FILE_TYPE,descricao,data) 
@@ -268,10 +268,10 @@
 			$id = $_GET['id'];
 			$get = mysqli_query($con,"select * from paginasobre_img where paginaSobre_sobre_id = '$id' ")or die(mysqli_error($con));
 			while($show = mysqli_fetch_assoc($get)):
-			$idImg = $show['sobreImg_id'];
-			$titulo = $show['sobreImg_nome'];
-			$del = mysqli_query($con,"delete from paginasobre_img where sobreImg_id = $idImg")or die(mysqli_error($con));
-				unlink('uploads/'.$titulo);
+				$idImg = $show['sobreImg_id'];
+				$titulo = $show['sobreImg_nome'];
+				$del = mysqli_query($con,"delete from paginasobre_img where sobreImg_id = $idImg")or die(mysqli_error($con));
+					unlink('uploads/'.$titulo);
 			endwhile;
 
 			
@@ -282,12 +282,92 @@
 					}else echo header("location:../pages/sobre.php?error=2");
 			break;
 		case 12://Editar sobre
-			# code...
+			$id = $_GET['id'];
+			$descricao = htmlspecialchars(trim($_POST['desc']));
+			$missao = htmlspecialchars(trim($_POST['missao']));
+			$visao = htmlspecialchars(trim($_POST['visao']));
+			$valores = htmlspecialchars(trim($_POST['valores']));
+
+			$query = mysqli_query($con,"UPDATE paginasobre SET  sobre_descricao = '$descricao',
+																sobre_missao = '$missao',
+																sobre_visao = '$visao',
+																sobre_valores = '$valores'
+																WHERE sobre_id = '$id' ")or die(mysqli_error($con));
+			if(isset($_FILES['files'])){
+	        $errors= array();
+	        $id = $_GET['id'];
+	    	foreach($_FILES['files']['tmp_name'] as $key => $tmp_name ){
+	    		$file_name = md5(rand(1,999)).$_FILES['files']['name'][$key];
+	            $file_size =$_FILES['files']['size'][$key];
+	            $file_tmp =$_FILES['files']['tmp_name'][$key];
+	            $file_type=$_FILES['files']['type'][$key];
+	            if($file_size > 99097152){
+	    			$errors[]='File size must be less than 3 MB';
+	                var_dump($errors);
+	            }		
+	            $desired_dir="uploads";
+	            if(empty($errors)==true){
+	                if(is_dir($desired_dir)==false){
+	                    mkdir("$desired_dir", 0700);		// Create directory if it does not exist
+	                }
+	                if(is_dir("$desired_dir/".$file_name)==false){
+	                    move_uploaded_file($file_tmp,"uploads/".$file_name);
+	                }else{									//rename the file if another one exist
+	                    $new_dir="uploads/".$file_name.time();
+	                     rename($file_tmp,$new_dir) ;				
+	                }
+
+	                 
+
+	                 
+	                 //$res = mysqli_query($con,"select max(sobre_id)as maior FROM paginasobre")or die(mysqli_error($con));
+	                // $most = mysqli_fetch_assoc($res);
+	                 //$maxId = $most['maior'];
+	                 mysqli_query($con,"UPDATE paginasobre_img SET sobreImg_nome ='$file_name',
+	                 									  		   sobreImg_tipo = '$file_type',
+	                                                      		   paginaSobre_sobre_id = '$id'
+	                 											   WHERE paginaSobre_sobre_id = '$id' ")or die(mysqli_error($con));
+
+
+	                // mysql_query("INSERT INTO fotos(titulo,FILE_NAME,FILE_SIZE,FILE_TYPE,descricao,data) 
+	                  //                  VALUES('$titulo','$file_name','$file_size','$file_type','$descricao','$data')")or die(mysql_error());			
+
+	            }else{
+	                    print_r($errors);
+	            }
+	            
+	        }
+	    	if(empty($error)){
+	    		echo "Success";
+	           
+	            header("Location:../pages/sobre.php?error=3");
+	    	}else{
+	    		header("Location:../pages/sobre.php?error=2");
+	    	}
+	    }
+
 			break;
 		case 13:
 			# code...
 			break;
-		
+		case 14://Editar sobre
+			# code...
+			break;
+		case 15:
+			# code...
+			break;
+		case 16://Editar sobre
+			# code...
+			break;
+		case 17:
+			# code...
+			break;
+		case 18://Editar sobre
+			# code...
+			break;
+		case 19:
+			# code...
+			break;
 		default:
 			# code...
 			break;
