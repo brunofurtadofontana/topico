@@ -347,13 +347,39 @@
 	    }
 
 			break;
-		case 13:
+		case 13://adicionar treinamento
+			   $titulo = htmlspecialchars(trim($_POST['titulo']));
+			   $objetivo = htmlspecialchars(trim($_POST['objetivo']));
+			   $requisito = htmlspecialchars(trim($_POST['requisito']));
+			   $conteudo = htmlspecialchars(trim($_POST['conteudo']));
+			   $ch = htmlspecialchars(trim($_POST['ch']));
+			   $valor	= htmlspecialchars(trim($_POST['valor']));
+			   $pasta = 'uploads';
+			   $file = $_FILES['imagem'];
+			   $temp = $file['tmp_name'];
+			   $filename = $file['name'];
+			   $filename = time().$filename;
+			 
+			   $largura_max	= 1300;
+			   $altura_max	= 800;
+			   // arquivo que contém a função
+			   require ('resize2.php');
+			   // funcao que redimensionará a imagem
+			   // o retorno da função é o nome do arquivo 
+			   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
+			   // gravando nome do arquivo no banco de dados
+			   $qr = mysqli_query($con,"INSERT INTO pagina_treinamento (treina_titulo,treina_objetivo,treina_requisito,treina_conteudo, treina_ch,treina_valor,treina_imagem) VALUES ('$titulo','$objetivo','$requisito','$conteudo','$ch','$valor','$result')")or die(mysqli_error($con));
+
+				if ($qr) {
+				header("Location:../pages/treinamentos.php?error=1");
+				}else{
+					header("Location:../pages/treinamentos.php?error=2");
+				}
+			break;
+		case 14://Editar treinamento
 			# code...
 			break;
-		case 14://Editar sobre
-			# code...
-			break;
-		case 15:
+		case 15://excluir treinamento
 			# code...
 			break;
 		case 16://Editar sobre
