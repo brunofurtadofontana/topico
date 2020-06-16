@@ -200,7 +200,7 @@
 		$visao = htmlspecialchars(trim($_POST['visao']));
 		$valores = htmlspecialchars(trim($_POST['valores']));
 
-		$query = mysqli_query($con,"INSERT INTO paginasobre(sobre_descricao,
+		$query = mysqli_query($con,"INSERT INTO pagina_sobre(sobre_descricao,
 															sobre_missao,
 															sobre_visao,
 															sobre_valores)
@@ -236,10 +236,10 @@
                  
 
                  
-                 $res = mysqli_query($con,"select max(sobre_id)as maior FROM paginasobre")or die(mysqli_error($con));
+                 $res = mysqli_query($con,"select max(sobre_id)as maior FROM pagina_sobre")or die(mysqli_error($con));
                  $most = mysqli_fetch_assoc($res);
                  $maxId = $most['maior'];
-                 mysqli_query($con,"INSERT into paginasobre_img(sobreImg_nome,
+                 mysqli_query($con,"INSERT into pagina_sobre_img(sobreImg_nome,
                  									  sobreImg_tipo,
                                                       paginaSobre_sobre_id)
                  									  VALUES('$file_name',
@@ -266,16 +266,16 @@
 			break;
 		case 11://Remover sobre
 			$id = $_GET['id'];
-			$get = mysqli_query($con,"select * from paginasobre_img where paginaSobre_sobre_id = '$id' ")or die(mysqli_error($con));
+			$get = mysqli_query($con,"select * from pagina_sobre_img where paginaSobre_sobre_id = '$id' ")or die(mysqli_error($con));
 			while($show = mysqli_fetch_assoc($get)):
 				$idImg = $show['sobreImg_id'];
 				$titulo = $show['sobreImg_nome'];
-				$del = mysqli_query($con,"delete from paginasobre_img where sobreImg_id = $idImg")or die(mysqli_error($con));
+				$del = mysqli_query($con,"delete from pagina_sobre_img where sobreImg_id = $idImg")or die(mysqli_error($con));
 					unlink('uploads/'.$titulo);
 			endwhile;
 
 			
-			$res = mysqli_query($con,"Delete from paginasobre WHERE sobre_id = '$id' ")or die(mysqli_error($con));
+			$res = mysqli_query($con,"Delete from pagina_sobre WHERE sobre_id = '$id' ")or die(mysqli_error($con));
 					if($res){
 						
 						echo header("location:../pages/sobre.php?error=4");
@@ -288,7 +288,7 @@
 			$visao = htmlspecialchars(trim($_POST['visao']));
 			$valores = htmlspecialchars(trim($_POST['valores']));
 
-			$query = mysqli_query($con,"UPDATE paginasobre SET  sobre_descricao = '$descricao',
+			$query = mysqli_query($con,"UPDATE pagina_sobre SET  sobre_descricao = '$descricao',
 																sobre_missao = '$missao',
 																sobre_visao = '$visao',
 																sobre_valores = '$valores'
@@ -323,7 +323,7 @@
 	                 //$res = mysqli_query($con,"select max(sobre_id)as maior FROM paginasobre")or die(mysqli_error($con));
 	                // $most = mysqli_fetch_assoc($res);
 	                 //$maxId = $most['maior'];
-	                 mysqli_query($con,"UPDATE paginasobre_img SET sobreImg_nome ='$file_name',
+	                 mysqli_query($con,"UPDATE pagina_sobre_img SET sobreImg_nome ='$file_name',
 	                 									  		   sobreImg_tipo = '$file_type',
 	                                                      		   paginaSobre_sobre_id = '$id'
 	                 											   WHERE paginaSobre_sobre_id = '$id' ")or die(mysqli_error($con));
@@ -354,6 +354,7 @@
 			   $conteudo = htmlspecialchars(trim($_POST['conteudo']));
 			   $ch = htmlspecialchars(trim($_POST['ch']));
 			   $valor	= htmlspecialchars(trim($_POST['valor']));
+			   $date =  date("Y-m-d");
 			   $pasta = 'uploads';
 			   $file = $_FILES['imagem'];
 			   $temp = $file['tmp_name'];
@@ -368,7 +369,7 @@
 			   // o retorno da função é o nome do arquivo 
 			   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
 			   // gravando nome do arquivo no banco de dados
-			   $qr = mysqli_query($con,"INSERT INTO pagina_treinamento (treina_titulo,treina_objetivo,treina_requisito,treina_conteudo, treina_ch,treina_valor,treina_imagem) VALUES ('$titulo','$objetivo','$requisito','$conteudo','$ch','$valor','$result')")or die(mysqli_error($con));
+			   $qr = mysqli_query($con,"INSERT INTO pagina_treinamento (treina_titulo,treina_objetivo,treina_requisito,treina_conteudo, treina_ch,treina_valor,treina_imagem,treina_date) VALUES ('$titulo','$objetivo','$requisito','$conteudo','$ch','$valor','$result','$date')")or die(mysqli_error($con));
 
 				if ($qr) {
 				header("Location:../pages/treinamentos.php?error=1");
@@ -377,10 +378,54 @@
 				}
 			break;
 		case 14://Editar treinamento
-			# code...
+		   $id = $_GET['id'];
+		   $titulo = htmlspecialchars(trim($_POST['titulo']));
+		   $objetivo = htmlspecialchars(trim($_POST['objetivo']));
+		   $requisito = htmlspecialchars(trim($_POST['requisito']));
+		   $conteudo = htmlspecialchars(trim($_POST['conteudo']));
+		   $ch = htmlspecialchars(trim($_POST['ch']));
+		   $valor	= htmlspecialchars(trim($_POST['valor']));
+		   $date =  date("Y-m-d");
+		   $pasta = 'uploads';
+		   $file = $_FILES['imagem'];
+		   $temp = $file['tmp_name'];
+		   $filename = $file['name'];
+		   $filename = time().$filename;
+		 
+		   $largura_max	= 1300;
+		   $altura_max	= 800;
+		   // arquivo que contém a função
+		   require ('resize2.php');
+		   // funcao que redimensionará a imagem
+		   // o retorno da função é o nome do arquivo 
+		   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
+		   $qr = mysqli_query($con,"UPDATE pagina_treinamento SET treina_titulo = '$titulo',
+													treina_objetivo = '$objetivo',
+													treina_requisito = '$requisito',
+													treina_conteudo = '$conteudo',
+													treina_ch = '$ch',
+													treina_valor = '$valor',
+													treina_imagem = '$result',
+													treina_date = '$date' 
+													WHERE treina_id = '$id' ")or die(mysqli_error($con));
+			if ($qr) {
+				header("Location:../pages/treinamentos.php?error=3");
+			}else{
+				header("Location:../pages/treinamentos.php?error=2");
+			}
 			break;
 		case 15://excluir treinamento
-			# code...
+			$id = $_GET['id'];
+			$get = mysqli_query($con,"select * from pagina_treinamento where treina_id = '$id' ")or die(mysqli_error($con));
+			$show = mysqli_fetch_assoc($get);
+			$titulo = $show['treina_imagem']; // pega o nome da foto antes de deletar
+			
+			
+			$res = mysqli_query($con,"Delete from pagina_treinamento WHERE treina_id = '$id' ")or die(mysqli_error($con));
+					if($res){
+						unlink('uploads/'.$titulo); // Deleta na pasta
+						echo header("location:../pages/treinamentos.php?error=4");
+					}else echo header("location:../pages/treinamentos.php?error=2");
 			break;
 		case 16://Editar sobre
 			# code...

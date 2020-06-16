@@ -159,15 +159,15 @@
                     
                     <div class="media">
                       <div class="media-body">
-                        <a href="" title="Editar">
-                              <i class="lnr lnr-pencil"> </i>
-                              </a>
-                              <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>" title="Excluir">
-                                <i class="lnr lnr-trash"> </i>
-                              </a>
-                              <a href=""  title="Detalhes">
-                                <i class="lnr lnr-eye"> </i>
-                              </a>
+                          <a href=""  data-toggle="modal" data-target="#myModalUpdate<?php echo $id; ?>" title="Editar">
+                            <i class="lnr lnr-pencil"> </i>
+                          </a>
+                          <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>" title="Excluir">
+                            <i class="lnr lnr-trash"> </i>
+                          </a>
+                          <a href=""  title="Detalhes">
+                            <i class="lnr lnr-eye"> </i>
+                          </a>
                       </div>
                       <div class="text-muted small">
                         <i class="ion ion-md-time text-primary"></i>
@@ -177,6 +177,89 @@
                   </div>
                 </div>
               </div> 
+              <!-- Modal UPDATE-->
+                  <div class="modal fade" id="myModalUpdate<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Atualizar Registro</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../config/funcoes.php?code=14&id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput">Título</label>
+                                  <input type="text" class="form-control" name="titulo" value="<?php echo $titulo ?>"  id="formGroupExampleInput" placeholder="Título">
+                                </div>
+                                <!-- <div class="form-group">
+                                  <label for="formGroupExampleInput2">Descrição</label>
+                                  <input type="text" class="form-control" name="descricao" id="formGroupExampleInput2" placeholder="Descrição">
+                                </div> -->
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Objetivo</label>
+                                  <input type="text" class="form-control" name="objetivo" value="<?php echo $obj ?>" id="formGroupExampleInput2" placeholder="Desenvolver competências...">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Pré-Requisito</label>
+                                  <input type="text" class="form-control" name="requisito" value="<?php echo $req ?>"id="formGroupExampleInput2" placeholder="Ex. Ensino médio">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Conteúdo programático</label>
+                                  <textarea type="text" class="form-control" name="conteudo"  id="formGroupExampleInput2" placeholder="Ex. Paquímetro,Normas..."><?php echo $conteudo ?></textarea><small>Colocar os conteúdos separados por vírgula.</small>
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Carga horária</label>
+                                  <input type="text" class="form-control" name="ch" id="formGroupExampleInput2" value="<?php echo $ch ?>" placeholder="Ex. 40 horas">
+                                </div>
+                                <!-- <div class="form-group">
+                                  <label for="formGroupExampleInput2">Link</label>
+                                  <input type="text" class="form-control" name="link" id="formGroupExampleInput2" placeholder="Link: http://topicotreinamentos.com.br/curso">
+                                </div> -->
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Valor</label>
+                                  <input type="text" class="form-control" name="valor" id="formGroupExampleInput2" value="<?php echo $vlr ?>" placeholder="R$000,00">
+                                </div>
+                                <label for="formGroupExampleInput2">Imagem</label>
+                                <div class="custom-file">
+                                  
+                                  <input type="file" class="custom-file-input" id="customFile" name="imagem" required="">
+                                  <label class="custom-file-label" for="customFile">Escolha uma imagem</label>
+                                </div>
+                                 
+                              
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div><!-- Modal Update-->
+                    <!-- Modal Delete -->
+                    <div class="modal fade" id="myModalDelete<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Deletar Registro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza que deseja deletar o rigistro id: <b><?php echo $id ?></b> ?
+                          </div>
+                          <div class="modal-footer">
+                            <form action="../config/funcoes.php?code=15&id=<?php echo $id; ?>" method="post">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Deletar</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  <!-- modal Delete -->
             <?php } //FIM DO LAÇO QUE RETORNA DADOS DA TABELA BANNERPRINCIPAL ?>
               <!-- Modal Add novo-->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

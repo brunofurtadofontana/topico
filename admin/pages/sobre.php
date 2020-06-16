@@ -167,7 +167,7 @@
                   </thead>
                   <tbody>
                     <?php
-                        $qr = mysqli_query($con,"select *from paginasobre")or die(mysqli_error($con));
+                        $qr = mysqli_query($con,"select *from pagina_sobre")or die(mysqli_error($con));
                         while($show=mysqli_fetch_assoc($qr)){
                           $id = $show['sobre_id'];
                           $desc = $show['sobre_descricao'];
@@ -175,7 +175,7 @@
                           $visao = $show['sobre_visao'];
                           $valores = $show['sobre_valores'];
                        
-                        $totalImagens = mysqli_query($con,"select count(sobreImg_id) as total from  paginasobre_img where paginaSobre_sobre_id = $id")or die(mysqli_error($con));
+                        $totalImagens = mysqli_query($con,"select count(sobreImg_id) as total from  pagina_sobre_img where paginaSobre_sobre_id = $id")or die(mysqli_error($con));
                         $count = mysqli_fetch_assoc($totalImagens);
                         $count = $count['total'];
 
@@ -188,23 +188,23 @@
                       <td><?php echo $valores; ?></td>
                       <td>Imagens(<?php echo $count ?>)</td>
                       <td>
-                        <i class="sidenav-icon ion ion-md-eye"></i>
+                        <a href="http://topicotreinamentos.com.br" target="_blank" ><i class="sidenav-icon ion ion-md-eye"></i></a>
                         <a href=""  data-toggle="modal" data-target="#myModalUpdate<?php echo $id; ?>"  ><i class="sidenav-icon ion ion-md-create"></i></a>
                         <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>"  ><i class="sidenav-icon ion ion-md-trash"></i></a>
                       </td>
                     </tr>
-                    <!-- Modal Delete Banner-->
+                    <!-- Modal Delete -->
                     <div class="modal fade" id="myModalDelete<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Deletar Banner</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Deletar Registro</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            Tem certeza que deseja deletar <b><?php echo $id ?></b> ?
+                            Tem certeza que deseja deletar o rigistro id: <b><?php echo $id ?></b> ?
                           </div>
                           <div class="modal-footer">
                             <form action="../config/funcoes.php?code=11&id=<?php echo $id; ?>" method="post">
