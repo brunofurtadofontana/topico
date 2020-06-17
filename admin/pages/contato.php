@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<?php include("../config/conexao.php");?>
 <html lang="pt" class="default-style">
 
 <head>
@@ -75,13 +75,53 @@
 
           <!-- Content -->
           <div class="container-fluid flex-grow-1 container-p-y">
-
+            <?php 
+              error_reporting(0);
+              $erro = $_GET['error'];
+              switch ($erro) {
+                case 1:
+                  echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Cadastrado com sucesso!
+                        </div>";
+                  break;
+                  case 2:
+                    echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Algo errado aconteceu.
+                        </div>";
+                    break;
+                  case 3:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo atualizado com sucesso!
+                        </div>";
+                    break;
+                  case 4:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo Deletado com sucesso!
+                        </div>";
+                    break;
+                  default:
+                    # code...
+                    break;
+                }
+            ?>  
             <h4 class="font-weight-bold py-3 mb-4">
               Página Contato
               <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">Today is Tuesday, 8 February 2018</small></div>
             </h4>
             <hr>
-            <form action="" method="post">
+            <form action="../config/funcoes.php?code=22" method="post">
               <div class="form-row">
               <div class="form-group col-md-12">
                 <label for="formGroupExampleInput">Email Contato</label>
@@ -132,26 +172,118 @@
                 </tr>
               </thead>
               <tbody>
+                <?php
+                    $query = mysqli_query($con,"select * from pagina_contato")or die(mysqli_error($con));
+                    while ($sw = mysqli_fetch_assoc($query)) {
+                        $id = $sw['contato_id'];
+                        $email = $sw['contato_email'];
+                        $telefone = $sw['contato_telefone'];
+                        $rua = $sw['contato_rua'];
+                        $cidade = $sw['contato_cidade'];
+                        $estado = $sw['contato_estado'];
+                        $Longitude = $sw['contato_long'];
+                        $Latitude = $sw['contato_lat'];
+                         
+                    ?>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>mark@gmail.com</td>
-                  <td>(49)92831-1234</td>
-                  <td>Palmitos</td>
-                  <td>Chapecó</td>
-                  <td>Santa Catarina</td>
-                  <td>3123123123</td>
-                  <td>-21313123</td>
+                  <th scope="row"><?php echo $id ?></th>
+                  <td><?php echo $email ?></td>
+                  <td><?php echo $telefone ?></td>
+                  <td><?php echo $rua ?></td>
+                  <td><?php echo $cidade ?></td>
+                  <td><?php echo $estado ?></td>
+                  <td><?php echo $Latitude ?></td>
+                  <td><?php echo $Longitude ?></td>
                   <td>
                     <i class="sidenav-icon ion ion-md-eye"></i>
-                    <i class="sidenav-icon ion ion-md-create"></i>
-                    <i class="sidenav-icon ion ion-md-trash"></i>
+                    <a href=""  data-toggle="modal" data-target="#myModalUpdate<?php echo $id; ?>" title="Editar">
+                        <i class="ion ion-md-create"> </i>
+                    </a>
+                    <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>" title="Deletar">
+                        <i class="sidenav-icon ion ion-md-trash"></i>
+                    </a>
                   </td>
                 </tr>
+                <!-- Modal UPDATE-->
+                  <div class="modal fade" id="myModalUpdate<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Atualizar Registro</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../config/funcoes.php?code=23&id=<?php echo $id ?>" method="post" enctype="multipart/form-data">       
+                            <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label for="formGroupExampleInput">Email Contato</label>
+                            <input type="email" class="form-control" name="email" value="<?php echo $email ?>" id="formGroupExampleInput" placeholder="Email" required="required">
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="formGroupExampleInput2">Telefone Contato</label>
+                            <input type="text" class="form-control" name="telefone" value="<?php echo $telefone ?>" id="formGroupExampleInput2" placeholder="(xx)xxxxx-xxxx" required="required">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="formGroupExampleInput2">Rua</label>
+                            <input type="text" class="form-control" name="rua" value="<?php echo $rua ?>" id="formGroupExampleInput2" placeholder="Rua.">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="formGroupExampleInput2">Cidade</label>
+                            <input type="text" class="form-control" name="cidade"  value="<?php echo $cidade ?>" id="formGroupExampleInput2" placeholder="Cidade" required="required">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="formGroupExampleInput2">Estado</label>
+                            <input type="text" class="form-control" name="estado" value="<?php echo $estado ?>" id="formGroupExampleInput2" placeholder="Estado" value="Santa Catarina">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="formGroupExampleInput2">Latitude</label>
+                            <input type="text" class="form-control" name="lat" value="<?php echo $Latitude ?>" id="formGroupExampleInput2" placeholder="-32.123213" required="required">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="formGroupExampleInput2">Longitude</label>
+                            <input type="text" class="form-control" name="long" value="<?php echo $Longitude ?>" id="formGroupExampleInput2" placeholder="-28.12321132" required="required">
+                          </div>
+                         
+                         </div>  
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div><!-- Modal Update-->
+                <!-- Modal Delete -->
+                    <div class="modal fade" id="myModalDelete<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Deletar Registro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza que deseja deletar o rigistro id: <b><?php echo $id ?></b> ?
+                          </div>
+                          <div class="modal-footer">
+                            <form action="../config/funcoes.php?code=24&id=<?php echo $id; ?>" method="post">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Deletar</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  <!-- modal Delete -->
+              <?php } ?>
               </tbody>
             </table>
             <h5>Mapa</h5>
             <small>Acesse o <a href="https://www.mapcoordinates.net/pt" target="_blank">link</a> para saber as coordenadas Lat/Long</small>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113682.00245365084!2d-52.71584295093236!3d-27.075551945204325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e4b5c94098efa5%3A0x6b810ae0d4ebfb6a!2zQ2hhcGVjw7MsIFND!5e0!3m2!1spt-BR!2sbr!4v1590360649398!5m2!1spt-BR!2sbr" width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113682.00245365084!2d<?php echo $long ?>5093236!3d<?php echo $lat ?>45204325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e4b5c94098efa5%3A0x6b810ae0d4ebfb6a!2zQ2hhcGVjw7MsIFND!5e0!3m2!1spt-BR!2sbr!4v1590360649398!5m2!1spt-BR!2sbr" width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
           </div>
           <!-- / Content -->
 

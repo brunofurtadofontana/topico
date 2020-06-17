@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<?php include("../config/conexao.php");?>
 <html lang="pt" class="default-style">
 
 <head>
@@ -75,7 +75,47 @@
 
           <!-- Content -->
           <div class="container-fluid flex-grow-1 container-p-y">
-
+              <?php 
+              error_reporting(0);
+              $erro = $_GET['error'];
+              switch ($erro) {
+                case 1:
+                  echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Cadastrado com sucesso!
+                        </div>";
+                  break;
+                  case 2:
+                    echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Algo errado aconteceu.
+                        </div>";
+                    break;
+                  case 3:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo atualizado com sucesso!
+                        </div>";
+                    break;
+                  case 4:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo Deletado com sucesso!
+                        </div>";
+                    break;
+                  default:
+                    # code...
+                    break;
+                }
+            ?>  
             <h4 class="font-weight-bold py-3 mb-4">
               Gerenciar usuários
               <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">Today is Tuesday, 8 February 2018</small></div>
@@ -95,17 +135,110 @@
                 </tr>
               </thead>
               <tbody>
+                <?php
+                    $query = mysqli_query($con,"select * from usuario")or die(mysqli_error($con));
+                    while ($sw = mysqli_fetch_assoc($query)) {
+                        $id = $sw['usuario_id'];
+                        $nome = $sw['usuario_nome'];
+                        $email = $sw['usuario_email'];
+                        $data = $sw['usuario_date'];
+                        $date = date("d-m-Y",strtotime("$data")); 
+                         
+                    ?>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>mark@gmail.com</td>
-                  <td>20/06/2020</td>
+                  <th scope="row"><?php echo $id ?></th>
+                  <td><?php echo $nome ?></td>
+                  <td><?php echo $email ?></td>
+                  <td><?php echo $date ?></td>
                   <td>
-                    <i class="sidenav-icon ion ion-md-eye"></i>
-                    <i class="sidenav-icon ion ion-md-create"></i>
-                    <i class="sidenav-icon ion ion-md-trash"></i>
+                        <i class="sidenav-icon ion ion-md-eye"></i>
+                    <a href=""  data-toggle="modal" data-target="#myModalUpdate<?php echo $id; ?>" title="Editar">
+                        <i class="sidenav-icon ion ion-md-create"></i>
+                    </a>
+                    <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>" title="Deletar">
+                      <i class="sidenav-icon ion ion-md-trash"></i>
+                    </a>
                   </td>
                 </tr>
+                <!-- Modal UPDATE-->
+                  <div class="modal fade" id="myModalUpdate<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Atualizar Registro</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../config/funcoes.php?code=26&id=<?php echo $id ?>" method="post" enctype="multipart/form-data">       
+                            <div class="form-group">
+                                  <label for="formGroupExampleInput">Nome</label>
+                                  <input type="text" class="form-control" name="nome" value="<?php echo $nome ?>" id="formGroupExampleInput" placeholder="Nome" required="required">
+                                </div>
+                                
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Email</label>
+                                  <input type="email" class="form-control" name="email" value="<?php echo $email ?>" id="formGroupExampleInput2" placeholder="Email" required="required">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Senha</label>
+                                  <input type="password" class="form-control" name="senha" id="senha1"  placeholder="Digite uma nova senha" required="required">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Confirmar Senha</label>
+                                  <input type="password" class="form-control" name="senha" id="senha2" placeholder="Repita a senha" required="required" onblur="validarSenha('senha','senha1')">
+                                  <script type="text/javascript">
+                                   var password = document.getElementById("senha1")
+                                   var confirm_password = document.getElementById("senha2");
+
+                                    function validatePassword(){
+                                      if(password.value != confirm_password.value) {
+                                        confirm_password.setCustomValidity("Senhas diferentes!");
+                                      } else {
+                                        confirm_password.setCustomValidity('');
+                                      }
+                                    }
+
+                                   password.onchange = validatePassword;
+                                   confirm_password.onkeyup = validatePassword;
+
+                                  </script>
+                                
+                         
+                         </div>  
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div><!-- Modal Update-->
+                <!-- Modal Delete -->
+                    <div class="modal fade" id="myModalDelete<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Deletar Registro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza que deseja deletar o rigistro id: <b><?php echo $id ?></b> ?
+                          </div>
+                          <div class="modal-footer">
+                            <form action="../config/funcoes.php?code=27&id=<?php echo $id; ?>" method="post">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Deletar</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  <!-- modal Delete -->
+              <?php } ?>
               </tbody>
             </table>
             <!-- Modal Add novo-->
@@ -119,15 +252,15 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form action="../config/funcoes.php?code=25" method="post">
                                 <div class="form-group">
                                   <label for="formGroupExampleInput">Nome</label>
-                                  <input type="text" class="form-control" name="nome" id="formGroupExampleInput" placeholder="Nome">
+                                  <input type="text" class="form-control" name="nome" id="formGroupExampleInput" placeholder="Nome" required="required">
                                 </div>
                                 
                                 <div class="form-group">
                                   <label for="formGroupExampleInput2">Email</label>
-                                  <input type="email" class="form-control" name="email" id="formGroupExampleInput2" placeholder="Email">
+                                  <input type="email" class="form-control" name="email" id="formGroupExampleInput2" placeholder="Email" required="required">
                                 </div>
                                 <!-- <div class="form-group">
                                   <label for="formGroupExampleInput2">Link</label>
@@ -135,21 +268,35 @@
                                 </div> -->
                                 <div class="form-group">
                                   <label for="formGroupExampleInput2">Senha</label>
-                                  <input type="password" class="form-control" name="senha" id="formGroupExampleInput2" placeholder="Senha">
+                                  <input type="password" class="form-control" name="senha" id="senha1" placeholder="Senha" required="required">
                                 </div>
                                 <div class="form-group">
                                   <label for="formGroupExampleInput2">Confirmar Senha</label>
-                                  <input type="password" class="form-control" name="senha" id="formGroupExampleInput2" placeholder="Senha">
+                                  <input type="password" class="form-control" name="senha" id="senha2" placeholder="Senha" required="required" onblur="validarSenha('senha','senha1')">
+                                  <script type="text/javascript">
+                                   var password = document.getElementById("senha1")
+                                   var confirm_password = document.getElementById("senha2");
+
+                                    function validatePassword(){
+                                      if(password.value != confirm_password.value) {
+                                        confirm_password.setCustomValidity("Senhas diferentes!");
+                                      } else {
+                                        confirm_password.setCustomValidity('');
+                                      }
+                                    }
+
+                                   password.onchange = validatePassword;
+                                   confirm_password.onkeyup = validatePassword;
+
+                                  </script>
                                 </div>
-                               
-                                
-                                 
-                              </form>
+                             
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                          <button type="button" class="btn btn-primary">Salvar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
+                         </form>
                       </div>
                     </div>
                   </div><!-- Modal Add-->

@@ -582,17 +582,100 @@
 						echo header("location:../pages/equipe.php?error=4");
 					}else echo header("location:../pages/equipe.php?error=2");
 			break;
-		case 22://asdas
-			# code...
+		case 22://Adicionar Contato
+            $email = $_POST['email'];
+            $telefone = $_POST['telefone'];
+            $rua = $_POST['rua'];
+            $cidade = $_POST['cidade'];
+            $estado = $_POST['estado'];
+            $longitude = $_POST['long'];
+            $latitude = $_POST['lat'];
+
+            $qr = mysqli_query($con,"INSERT INTO pagina_contato (contato_email,contato_telefone,contato_rua,contato_cidade,contato_estado,contato_long,contato_lat) VALUES ('$email','$telefone','$rua','cidade','$estado','$longitude','$latitude')")or die(mysqli_error($con));
+
+			if ($qr) {
+			header("Location:../pages/contato.php?error=1");
+			}else{
+				header("Location:../pages/contato.php?error=2");
+			}
 			break;
-		case 23:
-			# code...
+		case 23://Editar Contato
+			$id = $_GET['id'];
+			$email = $_POST['email'];
+            $telefone = $_POST['telefone'];
+            $rua = $_POST['rua'];
+            $cidade = $_POST['cidade'];
+            $estado = $_POST['estado'];
+            $longitude = $_POST['long'];
+            $latitude = $_POST['lat'];
+
+            $qr = mysqli_query($con,"UPDATE pagina_contato SET  contato_email = '$email',
+												            	contato_telefone = '$telefone',
+												            	contato_rua = '$rua',
+												            	contato_cidade = '$cidade',
+												            	contato_estado = '$estado',
+												            	contato_long = '$longitude',
+												            	contato_lat = '$latitude'
+												            	WHERE contato_id = '$id'")or die(mysqli_error($con));
+
+			if ($qr) {
+			header("Location:../pages/contato.php?error=3");
+			}else{
+				header("Location:../pages/contato.php?error=2");
+			}
+
+
 			break;
-		case 24:
-			# code...
+		case 24://Excluir contato
+
+			$id = $_GET['id'];			
+			$res = mysqli_query($con,"Delete from pagina_contato WHERE contato_id = '$id' ")or die(mysqli_error($con));
+					if($res){
+						//unlink('uploads/'.$titulo); // Deleta na pasta
+						echo header("location:../pages/contato.php?error=4");
+					}else echo header("location:../pages/contato.php?error=2");
+
 			break;
-		case 25:
-			# code...
+		case 25://Adicionar Usuario
+			$nome = $_POST['nome'];
+			$email = $_POST['email'];
+			$senha = $_POST['senha'];
+			$senha = md5($senha);
+			$date =  date("Y-m-d");
+			$qr = mysqli_query($con,"INSERT INTO usuario(usuario_nome,usuario_email,usuario_senha,usuario_date)VALUES('$nome','$email','$senha','$date')")or die(mysqli_error($con));
+
+			if ($qr) {
+			header("Location:../pages/usuarios.php?error=1");
+			}else{
+				header("Location:../pages/usuarios.php?error=2");
+			}
+			break;
+		case 26://Editar usuario
+			$id = $_GET['id'];
+			$nome = $_POST['nome'];
+			$email = $_POST['email'];
+			$senha = $_POST['senha'];
+			$senha = md5($senha);
+			$date =  date("Y-m-d");
+			$qr = mysqli_query($con,"UPDATE usuario SET usuario_nome ='$nome',
+														usuario_email = '$email',
+														usuario_senha = '$senha',
+														usuario_date = '$date' 
+														WHERE usuario_id = '$id'")or die(mysqli_error($con));
+
+			if ($qr) {
+			header("Location:../pages/usuarios.php?error=3");
+			}else{
+				header("Location:../pages/usuarios.php?error=2");
+			}
+			break;
+		case 27://Excluir usuário
+			$id = $_GET['id'];			
+			$res = mysqli_query($con,"Delete from usuario WHERE usuario_id = '$id' ")or die(mysqli_error($con));
+					if($res){
+						//unlink('uploads/'.$titulo); // Deleta na pasta
+						echo header("location:../pages/usuarios.php?error=4");
+					}else echo header("location:../pages/usuarios.php?error=2");
 			break;
 		default:
 			# code...
