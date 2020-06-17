@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<?php include("../config/conexao.php");?>
 <html lang="pt" class="default-style">
 
 <head>
@@ -75,6 +75,47 @@
 
           <!-- Content -->
           <div class="container-fluid flex-grow-1 container-p-y">
+            <?php 
+              error_reporting(0);
+              $erro = $_GET['error'];
+              switch ($erro) {
+                case 1:
+                  echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Cadastrado com sucesso!
+                        </div>";
+                  break;
+                  case 2:
+                    echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Algo errado aconteceu.
+                        </div>";
+                    break;
+                  case 3:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo atualizado com sucesso!
+                        </div>";
+                    break;
+                  case 4:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo Deletado com sucesso!
+                        </div>";
+                    break;
+                  default:
+                    # code...
+                    break;
+                }
+            ?>  
 
             <h4 class="font-weight-bold py-3 mb-4">
               Gerenciar Equipe de profissionais
@@ -84,43 +125,139 @@
                 <button type="button" class="btn btn-primary rounded-pill d-block"  data-toggle="modal" data-target="#exampleModal">
                 <span class="ion ion-md-add"></span>&nbsp; Add Novo</button>           
             </div>  
-             <div class="col-sm-6 col-xl-4">
-                <div class="card mb-4">
-                  <div class="w-100">
-                    <a href="../pages/detalheEvento.php?id=<?php echo $idEven;?>" class="card-img-top d-block ui-rect-60 ui-bg-cover" style="background-image: url('../config/uploads/8.jpg')">
-                      <div class="d-flex justify-content-between align-items-end ui-rect-content p-3">
-                        <div class="flex-shrink-1">                   
-                        </div>
-                        <div class="text-big">
-                          <div class="badge badge-dark font-weight-bold">MECANICA</div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+
+            <div class="row contacts-col-view">
+
+                <?php
+                    $query = mysqli_query($con,"select * from funcionarios")or die(mysqli_error($con));
+                    while ($sw = mysqli_fetch_assoc($query)) {
+                        $id = $sw['func_id'];
+                        $nome =  $sw['func_nome'];
+                        $email =  $sw['func_email'];
+                        $telefone  =  $sw['func_telefone'];
+                        $insta =  $sw['func_instagram'];
+                        $especialidade =  $sw['func_especialidade'];
+                        $desc  =  $sw['func_desc'];
+                        $img = $sw['func_imagem'];
+                        $dataPost = $sw['treina_date'];
+                        $data = date("d-m-Y",strtotime("$dataPost")); 
+                    ?>
+             <div class=" col-sm-6 col-xl-4 ">
+                <div class="card mb-4" >
                   <div class="card-body">
-                    <h5 class="mb-3"><a href="../pages/detalheEvento.php?id" class="text-body">LUCAS SOCCOL</a></h5>
-                    <p class="text-muted mb-3">Descrição...</p>
-                    
-                    <div class="media">
-                      <div class="media-body">
-                        <a href="" title="Editar">
-                              <i class="lnr lnr-pencil"> </i>
-                              </a>
-                              <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $idEven; ?>" title="Excluir">
-                                <i class="lnr lnr-trash"> </i>
-                              </a>
-                              <a href=""  title="Detalhes">
-                                <i class="lnr lnr-eye"> </i>
-                              </a>
-                      </div>
-                      <div class="text-muted small">
-                        <i class="ion ion-md-time text-primary"></i>
-                        <span>10/06/2020</span>
+                    <div class="contacts-dropdown btn-group">
+                      <button type="button"  class="btn btn-sm btn-default icon-btn borderless rounded-pill md-btn-flat dropdown-toggle hide-arrow" data-toggle="dropdown">
+                        <i class="ion ion-ios-more"></i>
+                      </button>
+                      <div class="contacts-dropdown-menu dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#myModalUpdate<?php echo $id; ?>" title="Atualizar">Editar</a>
+                        <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>" title="Excluir">Remover</a>
                       </div>
                     </div>
+
+                    <div class="contact-content" style="text-align: center;">
+                      <img src="../config/uploads/<?php echo $img ?>" class="contact-content-img rounded-circle" alt="" width="150" height="150">
+                      <div class="contact-content-about">
+                        <br>
+                        <h5 class="contact-content-name mb-1"><a href="javascript:void(0)" class="text-body"><?php echo $nome ?></a></h5>
+                        <div class="contact-content-user text-muted small mb-2">@<?php echo $insta; ?></div>
+                        <div class="small">
+                         <?php echo $especialidade ?> <br>
+                         <?php echo $telefone ?>
+                        </div>
+                        <hr class="border-light">
+                        <div>
+                          <a href="mailto:<?php echo $email ?>" class="text-secondary" title="<?php echo $email ?>"><span class="ion ion-md-mail"></span></a> &nbsp;&nbsp;
+                          <a href="javascript:void(0)" class="text-secondary"><span class="ion ion-ios-chatbubbles"></span></a> &nbsp;&nbsp;
+                          <span class="text-lighter">|</span> &nbsp;&nbsp;
+                          <a href="javascript:void(0)" class="text-twitter" ><span class="ion ion-logo-twitter"></span></a> &nbsp;&nbsp;
+                          <a href="javascript:void(0)" class="text-facebook"><span class="ion ion-logo-facebook"></span></a> &nbsp;&nbsp;
+                          <a href="http://instagram.com/<?php echo $insta ?>" class="text-instagram" title="@<?php echo $insta ?>"><span class="ion ion-logo-instagram"></span></a>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div> 
+              <!-- Modal UPDATE-->
+                  <div class="modal fade" id="myModalUpdate<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Atualizar Registro</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../config/funcoes.php?code=20&id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput">Nome</label>
+                                  <input type="text" class="form-control" name="nome" id="formGroupExampleInput" value="<?php echo $nome ?>" placeholder="Nome" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Especialidade</label>
+                                  <input type="text" class="form-control" name="espec" id="formGroupExampleInput2" value="<?php echo $especialidade ?>" placeholder="Especialidade" required>
+                                </div>
+                          
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Descrição</label>
+                                  <input type="text" class="form-control" name="desc" id="formGroupExampleInput2" value="<?php echo $desc ?>" placeholder="Descrição sobre" required>
+                                </div>
+                                 <div class="form-group">
+                                  <label for="formGroupExampleInput2">Telefone</label>
+                                  <input type="text" class="form-control" name="telefone" id="formGroupExampleInput2" value="<?php echo $telefone ?>" placeholder="(XX)XXXXX-XXXX" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">@instagram</label>
+                                  <input type="text" class="form-control" name="insta" id="formGroupExampleInput2" value="<?php echo $insta ?>" placeholder="@fulano">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Email</label>
+                                  <input type="email" class="form-control" name="email" id="formGroupExampleInput2" value="<?php echo $email ?>" placeholder="Email" required>
+                                </div>
+                                
+                                <label for="formGroupExampleInput2">Imagem</label>
+                                <div class="custom-file">
+                                  
+                                  <input type="file" class="custom-file-input" id="customFile" name="imagem" required="">
+                                  <label class="custom-file-label" for="customFile">Escolha uma imagem</label>
+                                </div>  
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div><!-- Modal Update-->
+                  <!-- Modal Delete -->
+                    <div class="modal fade" id="myModalDelete<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Deletar Registro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza que deseja deletar o rigistro id: <b><?php echo $id ?></b> ?
+                          </div>
+                          <div class="modal-footer">
+                            <form action="../config/funcoes.php?code=21&id=<?php echo $id; ?>" method="post">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Deletar</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  <!-- modal Delete -->
+            <?php } ?>
+            </div>
               <!-- Modal Add novo-->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -132,34 +269,48 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form action="../config/funcoes.php?code=19" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                   <label for="formGroupExampleInput">Nome</label>
-                                  <input type="text" class="form-control" name="nome" id="formGroupExampleInput" placeholder="Nome">
+                                  <input type="text" class="form-control" name="nome" id="formGroupExampleInput" placeholder="Nome" required>
                                 </div>
                                 
                                 <div class="form-group">
                                   <label for="formGroupExampleInput2">Especialidade</label>
-                                  <input type="text" class="form-control" name="especialidade" id="formGroupExampleInput2" placeholder="Especialidade">
+                                  <input type="text" class="form-control" name="espec" id="formGroupExampleInput2" placeholder="Especialidade" required>
                                 </div>
                           
                                 <div class="form-group">
                                   <label for="formGroupExampleInput2">Descrição</label>
-                                  <input type="text" class="form-control" name="desc" id="formGroupExampleInput2" placeholder="Descrição sobre">
+                                  <input type="text" class="form-control" name="desc" id="formGroupExampleInput2" placeholder="Descrição sobre" required>
                                 </div>
-                                <label for="formGroupExampleInput2">Imagem</label>
+                                 <div class="form-group">
+                                  <label for="formGroupExampleInput2">Telefone</label>
+                                  <input type="text" class="form-control" name="telefone" id="formGroupExampleInput2" placeholder="(XX)XXXXX-XXXX" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">@instagram</label>
+                                  <input type="text" class="form-control" name="insta" id="formGroupExampleInput2" placeholder="@fulano">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Email</label>
+                                  <input type="email" class="form-control" name="email" id="formGroupExampleInput2" placeholder="Email" required>
+                                </div>
+
+                                <label for="formGroupExampleInput2">Imagem Perfil</label>
                                 <div class="custom-file">
                                   
-                                  <input type="file" class="custom-file-input" id="customFile">
+                                  <input type="file" class="custom-file-input" id="customFile" name="imagem" required="">
                                   <label class="custom-file-label" for="customFile">Escolha uma imagem</label>
                                 </div>
                                  
-                              </form>
+                              
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                          <button type="button" class="btn btn-primary">Salvar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
+                        </form>
                       </div>
                     </div>
                   </div><!-- Modal Add-->

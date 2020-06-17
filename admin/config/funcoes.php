@@ -427,16 +427,171 @@
 						echo header("location:../pages/treinamentos.php?error=4");
 					}else echo header("location:../pages/treinamentos.php?error=2");
 			break;
-		case 16://Editar sobre
+		case 16://adicionar Consultorias
+			   $titulo = htmlspecialchars(trim($_POST['titulo']));
+			   $desc = htmlspecialchars(trim($_POST['descricao']));
+			   $valor	= htmlspecialchars(trim($_POST['valor']));
+			   $date =  date("Y-m-d");
+			   $pasta = 'uploads';
+			   $file = $_FILES['imagem'];
+			   $temp = $file['tmp_name'];
+			   $filename = $file['name'];
+			   $filename = time().$filename;
+			 
+			   $largura_max	= 1300;
+			   $altura_max	= 800;
+			   // arquivo que contém a função
+			   require ('resize2.php');
+			   // funcao que redimensionará a imagem
+			   // o retorno da função é o nome do arquivo 
+			   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
+			   // gravando nome do arquivo no banco de dados
+			   $qr = mysqli_query($con,"INSERT INTO pagina_consultoria (consulto_titulo,consulto_descricao,consulto_valor,consulto_imagem,consulto_date) VALUES ('$titulo','$desc','$valor','$result','$date')")or die(mysqli_error($con));
+
+				if ($qr) {
+				header("Location:../pages/consultorias.php?error=1");
+				}else{
+					header("Location:../pages/consultorias.php?error=2");
+				}	
+			break;
+		case 17://Editar Consultorias
+			   $id = $_GET['id'];
+			   $titulo = htmlspecialchars(trim($_POST['titulo']));
+			   $desc = htmlspecialchars(trim($_POST['descricao']));
+			   $valor	= htmlspecialchars(trim($_POST['valor']));
+			   $date =  date("Y-m-d");
+			   $pasta = 'uploads';
+			   $file = $_FILES['imagem'];
+			   $temp = $file['tmp_name'];
+			   $filename = $file['name'];
+			   $filename = time().$filename;
+			 
+			   $largura_max	= 1300;
+			   $altura_max	= 800;
+			   // arquivo que contém a função
+			   require ('resize2.php');
+			   // funcao que redimensionará a imagem
+			   // o retorno da função é o nome do arquivo 
+			   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
+			   // gravando nome do arquivo no banco de dados
+			  $qr = mysqli_query($con,"UPDATE pagina_consultoria SET consulto_titulo = '$titulo',
+																	consulto_descricao = '$desc',
+																	consulto_valor = '$valor',
+																	consulto_imagem = '$result',
+																	consulto_date = '$date' 
+																	WHERE consulto_id = '$id' ")or die(mysqli_error($con));
+
+				if ($qr) {
+				header("Location:../pages/consultorias.php?error=3");
+				}else{
+					header("Location:../pages/consultorias.php?error=2");
+				}	
+			break;
+		case 18://Excluir Consultorias
+			$id = $_GET['id'];
+			$get = mysqli_query($con,"select * from pagina_consultoria where consulto_id = '$id' ")or die(mysqli_error($con));
+			$show = mysqli_fetch_assoc($get);
+			$titulo = $show['consulto_imagem']; // pega o nome da foto antes de deletar
+			
+			
+			$res = mysqli_query($con,"Delete from pagina_consultoria WHERE consulto_id = '$id' ")or die(mysqli_error($con));
+					if($res){
+						unlink('uploads/'.$titulo); // Deleta na pasta
+						echo header("location:../pages/consultorias.php?error=4");
+					}else echo header("location:../pages/consultorias.php?error=2");
+			break;
+		case 19:// Adicionar profissional
+		   $nome = htmlspecialchars(trim($_POST['nome']));
+		   $email = htmlspecialchars(trim($_POST['email']));
+		   $telefone	= htmlspecialchars(trim($_POST['telefone']));
+		   $insta	= htmlspecialchars(trim($_POST['insta']));
+		   $especialidade	= htmlspecialchars(trim($_POST['espec']));
+		   $desc	= htmlspecialchars(trim($_POST['desc']));
+		   $date =  date("Y-m-d");
+		   $pasta = 'uploads';
+		   $file = $_FILES['imagem'];
+		   $temp = $file['tmp_name'];
+		   $filename = $file['name'];
+		   $filename = time().$filename;
+		 
+		   $largura_max	= 1300;
+		   $altura_max	= 800;
+		   // arquivo que contém a função
+		   require ('resize2.php');
+		   // funcao que redimensionará a imagem
+		   // o retorno da função é o nome do arquivo 
+		   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
+		   // gravando nome do arquivo no banco de dados
+		   $qr = mysqli_query($con,"INSERT INTO funcionarios (func_nome,func_email,func_telefone,func_instagram,func_especialidade,func_desc,func_imagem,func_date) VALUES ('$nome','$email','$telefone','$insta','$especialidade','$desc','$result','$date')")or die(mysqli_error($con));
+
+			if ($qr) {
+			header("Location:../pages/equipe.php?error=1");
+			}else{
+				header("Location:../pages/equipe.php?error=2");
+			}
+			break;
+		case 20:// Editar Profissional
+			$id = $_GET['id'];
+			$nome = htmlspecialchars(trim($_POST['nome']));
+		   $email = htmlspecialchars(trim($_POST['email']));
+		   $telefone	= htmlspecialchars(trim($_POST['telefone']));
+		   $insta	= htmlspecialchars(trim($_POST['insta']));
+		   $especialidade	= htmlspecialchars(trim($_POST['espec']));
+		   $desc	= htmlspecialchars(trim($_POST['desc']));
+		   $date =  date("Y-m-d");
+		   $pasta = 'uploads';
+		   $file = $_FILES['imagem'];
+		   $temp = $file['tmp_name'];
+		   $filename = $file['name'];
+		   $filename = time().$filename;
+		 
+		   $largura_max	= 1300;
+		   $altura_max	= 800;
+		   // arquivo que contém a função
+		   require ('resize2.php');
+		   // funcao que redimensionará a imagem
+		   // o retorno da função é o nome do arquivo 
+		   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
+		   // gravando nome do arquivo no banco de dados
+		   $qr = mysqli_query($con,"UPDATE funcionarios SET func_nome = '$nome',
+		   													func_email = '$email',
+		   													func_telefone = '$telefone',
+		   													func_instagram = '$insta',
+		   													func_especialidade = '$especialidade',
+		   													func_desc = '$desc',
+		   													func_imagem = '$result',
+		   													func_date = '$date'
+		   													WHERE func_id = '$id' ")or die(mysqli_error($con));
+
+			if ($qr) {
+			header("Location:../pages/equipe.php?error=3");
+			}else{
+				header("Location:../pages/equipe.php?error=2");
+			}
+			break;
+		case 21://Excluir Profissional
+			$id = $_GET['id'];
+			$get = mysqli_query($con,"select * from funcionarios where func_id = '$id' ")or die(mysqli_error($con));
+			$show = mysqli_fetch_assoc($get);
+			$titulo = $show['func_imagem']; // pega o nome da foto antes de deletar
+			
+			
+			$res = mysqli_query($con,"Delete from funcionarios WHERE func_id = '$id' ")or die(mysqli_error($con));
+					if($res){
+						unlink('uploads/'.$titulo); // Deleta na pasta
+						echo header("location:../pages/equipe.php?error=4");
+					}else echo header("location:../pages/equipe.php?error=2");
+			break;
+		case 22://asdas
 			# code...
 			break;
-		case 17:
+		case 23:
 			# code...
 			break;
-		case 18://Editar sobre
+		case 24:
 			# code...
 			break;
-		case 19:
+		case 25:
 			# code...
 			break;
 		default:

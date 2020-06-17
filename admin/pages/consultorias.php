@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<?php include("../config/conexao.php"); ?>
 <html lang="pt" class="default-style">
 
 <head>
@@ -75,6 +75,47 @@
 
           <!-- Content -->
           <div class="container-fluid flex-grow-1 container-p-y">
+             <?php 
+              error_reporting(0);
+              $erro = $_GET['error'];
+              switch ($erro) {
+                case 1:
+                  echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Cadastrado com sucesso!
+                        </div>";
+                  break;
+                  case 2:
+                    echo "<div id='erro' class='alert alert-dark-danger alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Algo errado aconteceu.
+                        </div>";
+                    break;
+                  case 3:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo atualizado com sucesso!
+                        </div>";
+                    break;
+                  case 4:
+                    echo "<div id='erro' class='alert alert-dark-success alert-dismissible fade show'>
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>&times;</span>
+                          </button>
+                         Conteúdo Deletado com sucesso!
+                        </div>";
+                    break;
+                  default:
+                    # code...
+                    break;
+                }
+            ?>  
 
             <h4 class="font-weight-bold py-3 mb-4">
               Página Consultorias
@@ -84,29 +125,41 @@
                 <button type="button" class="btn btn-primary rounded-pill d-block"  data-toggle="modal" data-target="#exampleModal">
                 <span class="ion ion-md-add"></span>&nbsp; Add Novo</button>           
             </div>  
+            <div class="row">
+              <?php
+                    $query = mysqli_query($con,"select * from pagina_consultoria")or die(mysqli_error($con));
+                    while ($sw = mysqli_fetch_assoc($query)) {
+                        $id = $sw['consulto_id'];
+                        $titulo = $sw['consulto_titulo'];
+                        $desc = $sw['consulto_descricao'];
+                        $img = $sw['consulto_imagem'];
+                        $vlr = $sw['consulto_valor'];
+                        $dataPost = $sw['consulto_date'];
+                        $data = date("d-m-Y",strtotime("$dataPost")); 
+                    ?>
              <div class="col-sm-6 col-xl-4">
                 <div class="card mb-4">
                   <div class="w-100">
-                    <a href="../pages/detalheEvento.php?id=<?php echo $idEven;?>" class="card-img-top d-block ui-rect-60 ui-bg-cover" style="background-image: url('../config/uploads/8.jpg')">
+                    <a href="../pages/detalheEvento.php?id=<?php echo $idEven;?>" class="card-img-top d-block ui-rect-60 ui-bg-cover" style="background-image: url('../config/uploads/<?php echo $img ?>')">
                       <div class="d-flex justify-content-between align-items-end ui-rect-content p-3">
                         <div class="flex-shrink-1">                   
                         </div>
                         <div class="text-big">
-                          <div class="badge badge-dark font-weight-bold">R$200,00</div>
+                          <div class="badge badge-dark font-weight-bold"><?php echo $vlr ?></div>
                         </div>
                       </div>
                     </a>
                   </div>
                   <div class="card-body">
-                    <h5 class="mb-3"><a href="../pages/detalheEvento.php?id" class="text-body">Consultoria em projetos mecânicos</a></h5>
-                    <p class="text-muted mb-3">Descrição...</p>
+                    <h5 class="mb-3"><a href="../pages/detalheEvento.php?id" class="text-body"><?php echo $titulo ?></a></h5>
+                    <p class="text-muted mb-3"><?php echo $desc ?></p>
                     
                     <div class="media">
                       <div class="media-body">
-                        <a href="" title="Editar">
-                              <i class="lnr lnr-pencil"> </i>
+                              <a href=""  data-toggle="modal" data-target="#myModalUpdate<?php echo $id; ?>" title="Atualizar">
+                                <i class="lnr lnr-pencil"> </i>
                               </a>
-                              <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $idEven; ?>" title="Excluir">
+                              <a href=""  data-toggle="modal" data-target="#myModalDelete<?php echo $id; ?>" title="Excluir">
                                 <i class="lnr lnr-trash"> </i>
                               </a>
                               <a href=""  title="Detalhes">
@@ -121,6 +174,68 @@
                   </div>
                 </div>
               </div> 
+              <!-- Modal UPDATE-->
+                  <div class="modal fade" id="myModalUpdate<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Atualizar Registro</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../config/funcoes.php?code=17&id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput">Título</label>
+                                  <input type="text" class="form-control" name="titulo" value="<?php echo $titulo ?>"  id="formGroupExampleInput" placeholder="Título">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Descrição</label>
+                                  <input type="text" class="form-control" name="descricao" value="<?php echo $desc ?>"  id="formGroupExampleInput2" placeholder="Descrição">
+                                </div> 
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Valor</label>
+                                  <input type="text" class="form-control" name="valor" id="formGroupExampleInput2" value="<?php echo $vlr ?>" placeholder="R$000,00">
+                                </div>
+                                <label for="formGroupExampleInput2">Imagem</label>
+                                <div class="custom-file">
+                                  
+                                  <input type="file" class="custom-file-input" id="customFile"  name="imagem" required="">
+                                  <label class="custom-file-label" for="customFile">Escolha uma imagem</label>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div><!-- Modal Update-->
+                  <!-- Modal Delete -->
+                    <div class="modal fade" id="myModalDelete<?php if($id==$id)echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Deletar Registro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza que deseja deletar o rigistro id: <b><?php echo $id ?></b> ?
+                          </div>
+                          <div class="modal-footer">
+                            <form action="../config/funcoes.php?code=18&id=<?php echo $id; ?>" method="post">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Deletar</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  <!-- modal Delete -->
+            <?php } ?>
               <!-- Modal Add novo-->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -132,7 +247,7 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form action="../config/funcoes.php?code=16" method="post" enctype="multipart/form-data" >
                                 <div class="form-group">
                                   <label for="formGroupExampleInput">Título</label>
                                   <input type="text" class="form-control" name="titulo" id="formGroupExampleInput" placeholder="Título">
@@ -153,21 +268,22 @@
                                 <label for="formGroupExampleInput2">Imagem</label>
                                 <div class="custom-file">
                                   
-                                  <input type="file" class="custom-file-input" id="customFile">
+                                  <input type="file" class="custom-file-input" id="customFile" name="imagem" required="">
                                   <label class="custom-file-label" for="customFile">Escolha uma imagem</label>
                                 </div>
                                  
-                              </form>
+                              
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                          <button type="button" class="btn btn-primary">Salvar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
+                        </form>
                       </div>
                     </div>
                   </div><!-- Modal Add-->
             
-
+                </div>
           </div>
           <!-- / Content -->
 
