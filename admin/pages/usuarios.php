@@ -131,6 +131,7 @@
                   <th scope="col">Nome</th>
                   <th scope="col">Email</th>
                   <th scope="col">Data Cadastro</th>
+                  <th scope="col">Senha Criptografada</th>
                   <th scope="col">Ações</th>
                 </tr>
               </thead>
@@ -142,6 +143,7 @@
                         $nome = $sw['usuario_nome'];
                         $email = $sw['usuario_email'];
                         $data = $sw['usuario_date'];
+                        $senha = $sw['usuario_senha'];
                         $date = date("d-m-Y",strtotime("$data")); 
                          
                     ?>
@@ -150,6 +152,14 @@
                   <td><?php echo $nome ?></td>
                   <td><?php echo $email ?></td>
                   <td><?php echo $date ?></td>
+                  <td>
+                    <?php 
+                    $senha = mb_strimwidth($senha, 0, 15, "...");
+                    echo $senha; 
+                    ?>
+                    
+
+                  </td>
                   <td>
                         <i class="sidenav-icon ion ion-md-eye"></i>
                     <a href=""  data-toggle="modal" data-target="#myModalUpdate<?php echo $id; ?>" title="Editar">

@@ -221,6 +221,7 @@
                                   <label for="formGroupExampleInput2">Valor</label>
                                   <input type="text" class="form-control" name="valor" id="formGroupExampleInput2" value="<?php echo $vlr ?>" placeholder="R$000,00">
                                 </div>
+
                                 <label for="formGroupExampleInput2">Imagem</label>
                                 <div class="custom-file">
                                   
@@ -305,14 +306,36 @@
                                   <label for="formGroupExampleInput2">Valor</label>
                                   <input type="text" class="form-control" name="valor" id="formGroupExampleInput2" placeholder="R$000,00">
                                 </div>
-                                <label for="formGroupExampleInput2">Imagem</label>
-                                <div class="custom-file">
-                                  
-                                  <input type="file" class="custom-file-input" id="customFile" name="imagem" required="">
-                                  <label class="custom-file-label" for="customFile">Escolha uma imagem</label>
+                                <script type="text/javascript">
+                                  function HabilitarUpload(){
+                                      if (document.getElementById('disabled').checked) 
+                                      {
+                                          
+                                          document.getElementById('customFile').setAttribute("disabled","true");
+                                          document.getElementById('label').style.backgroundColor = "darkgray  ";
+                                      } 
+                                      else 
+                                      {
+                                          
+                                          document.getElementById('customFile').removeAttribute("disabled");
+                                          document.getElementById('label').style.backgroundColor = "";
+                                          
+                                      }
+                                  }
+                                </script>
+                                <div class="form-group">
+                                  <label>Usar imagem padrão</label><br>
+                                  <input type="checkbox" id="disabled" name="imagemPadrao" value="topico.jpg" onclick="HabilitarUpload();" >
+                                  <img src="../config/uploads/topico.jpg" width="25"/>
                                 </div>
-                                 
-                              
+                                
+                                <div class="custom-file" id="file">
+                                  <label for="formGroupExampleInput2">Imagem</label>
+                                  <input type="file" class="custom-file-input" id="customFile" name="imagem" >
+                                  <label class="custom-file-label" id="label" for="customFile">Escolha uma imagem</label>
+                                </div>
+                                
+                            
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

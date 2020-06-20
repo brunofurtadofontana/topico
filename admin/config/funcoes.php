@@ -354,13 +354,14 @@
 			   $conteudo = htmlspecialchars(trim($_POST['conteudo']));
 			   $ch = htmlspecialchars(trim($_POST['ch']));
 			   $valor	= htmlspecialchars(trim($_POST['valor']));
+			   $imagem = htmlspecialchars(trim($_POST['imagemPadrao']));
 			   $date =  date("Y-m-d");
 			   $pasta = 'uploads';
 			   $file = $_FILES['imagem'];
 			   $temp = $file['tmp_name'];
 			   $filename = $file['name'];
 			   $filename = time().$filename;
-			 
+
 			   $largura_max	= 1300;
 			   $altura_max	= 800;
 			   // arquivo que contém a função
@@ -368,8 +369,17 @@
 			   // funcao que redimensionará a imagem
 			   // o retorno da função é o nome do arquivo 
 			   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
-			   // gravando nome do arquivo no banco de dados
-			   $qr = mysqli_query($con,"INSERT INTO pagina_treinamento (treina_titulo,treina_objetivo,treina_requisito,treina_conteudo, treina_ch,treina_valor,treina_imagem,treina_date) VALUES ('$titulo','$objetivo','$requisito','$conteudo','$ch','$valor','$result','$date')")or die(mysqli_error($con));
+			 
+
+				if ($imagem != "") {
+					$qr = mysqli_query($con,"INSERT INTO pagina_treinamento (treina_titulo,treina_objetivo,treina_requisito,treina_conteudo, treina_ch,treina_valor,treina_imagem,treina_date) VALUES ('$titulo','$objetivo','$requisito','$conteudo','$ch','$valor','$imagem','$date')")or die(mysqli_error($con)); 	
+				}else{
+
+				   
+				   // gravando nome do arquivo no banco de dados
+				   $qr = mysqli_query($con,"INSERT INTO pagina_treinamento (treina_titulo,treina_objetivo,treina_requisito,treina_conteudo, treina_ch,treina_valor,treina_imagem,treina_date) VALUES ('$titulo','$objetivo','$requisito','$conteudo','$ch','$valor','$result','$date')")or die(mysqli_error($con));
+					}	 
+			  
 
 				if ($qr) {
 				header("Location:../pages/treinamentos.php?error=1");
@@ -420,18 +430,26 @@
 			$show = mysqli_fetch_assoc($get);
 			$titulo = $show['treina_imagem']; // pega o nome da foto antes de deletar
 			
-			
+			if($titulo == "topico.jpg"){
+				$res = mysqli_query($con,"Delete from pagina_treinamento WHERE treina_id = '$id' ")or die(mysqli_error($con));
+					if($res){
+						//unlink('uploads/'.$titulo); // Deleta na pasta
+						echo header("location:../pages/treinamentos.php?error=4");
+					}else echo header("location:../pages/treinamentos.php?error=2");
+			}else{
 			$res = mysqli_query($con,"Delete from pagina_treinamento WHERE treina_id = '$id' ")or die(mysqli_error($con));
 					if($res){
 						unlink('uploads/'.$titulo); // Deleta na pasta
 						echo header("location:../pages/treinamentos.php?error=4");
 					}else echo header("location:../pages/treinamentos.php?error=2");
+			}
 			break;
 		case 16://adicionar Consultorias
 			   $titulo = htmlspecialchars(trim($_POST['titulo']));
 			   $desc = htmlspecialchars(trim($_POST['descricao']));
 			   $valor	= htmlspecialchars(trim($_POST['valor']));
 			   $date =  date("Y-m-d");
+			   $imagem = htmlspecialchars(trim($_POST['imagemPadrao']));
 			   $pasta = 'uploads';
 			   $file = $_FILES['imagem'];
 			   $temp = $file['tmp_name'];
@@ -446,8 +464,11 @@
 			   // o retorno da função é o nome do arquivo 
 			   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
 			   // gravando nome do arquivo no banco de dados
-			   $qr = mysqli_query($con,"INSERT INTO pagina_consultoria (consulto_titulo,consulto_descricao,consulto_valor,consulto_imagem,consulto_date) VALUES ('$titulo','$desc','$valor','$result','$date')")or die(mysqli_error($con));
-
+			   if ($imagem != "") {
+			   			$qr = mysqli_query($con,"INSERT INTO pagina_consultoria (consulto_titulo,consulto_descricao,consulto_valor,consulto_imagem,consulto_date) VALUES ('$titulo','$desc','$valor','$imagem','$date')")or die(mysqli_error($con));
+			    }else{
+			    	$qr = mysqli_query($con,"INSERT INTO pagina_consultoria (consulto_titulo,consulto_descricao,consulto_valor,consulto_imagem,consulto_date) VALUES ('$titulo','$desc','$valor','$result','$date')")or die(mysqli_error($con));	
+				}
 				if ($qr) {
 				header("Location:../pages/consultorias.php?error=1");
 				}else{
@@ -474,7 +495,7 @@
 			   // o retorno da função é o nome do arquivo 
 			   $result = upload($temp, $filename, $largura_max, $altura_max, $pasta);
 			   // gravando nome do arquivo no banco de dados
-			  $qr = mysqli_query($con,"UPDATE pagina_consultoria SET consulto_titulo = '$titulo',
+			   $qr = mysqli_query($con,"UPDATE pagina_consultoria SET consulto_titulo = '$titulo',
 																	consulto_descricao = '$desc',
 																	consulto_valor = '$valor',
 																	consulto_imagem = '$result',
@@ -493,12 +514,20 @@
 			$show = mysqli_fetch_assoc($get);
 			$titulo = $show['consulto_imagem']; // pega o nome da foto antes de deletar
 			
-			
-			$res = mysqli_query($con,"Delete from pagina_consultoria WHERE consulto_id = '$id' ")or die(mysqli_error($con));
+			if($titulo == "topico.jpg"){
+				$res = mysqli_query($con,"Delete from pagina_consultoria WHERE consulto_id = '$id' ")or die(mysqli_error($con));
+					if($res){
+						//unlink('uploads/'.$titulo); // Deleta na pasta
+						echo header("location:../pages/consultorias.php?error=4");
+					}else echo header("location:../pages/consultorias.php?error=2");
+			}else{
+				$res = mysqli_query($con,"Delete from pagina_consultoria WHERE consulto_id = '$id' ")or die(mysqli_error($con));
 					if($res){
 						unlink('uploads/'.$titulo); // Deleta na pasta
 						echo header("location:../pages/consultorias.php?error=4");
 					}else echo header("location:../pages/consultorias.php?error=2");
+			}
+			
 			break;
 		case 19:// Adicionar profissional
 		   $nome = htmlspecialchars(trim($_POST['nome']));
