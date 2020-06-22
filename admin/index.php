@@ -150,7 +150,7 @@
             <div class="form-group">
               <label class="form-label d-flex justify-content-between align-items-end">
                 <div>Senha</div>
-                <a href="javascript:void(0)" class="d-block small">Esqueceu a senha?</a>
+                <a href="forget.php" class="d-block small">Esqueceu a senha?</a>
               </label>
               <input type="password" class="form-control" name="senha" placeholder="Digite sua senha" required>
             </div>

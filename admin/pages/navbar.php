@@ -1,4 +1,4 @@
-<!-- Layout navbar -->
+
         <nav class="layout-navbar navbar navbar-expand-lg align-items-lg-center bg-white container-p-x" id="layout-navbar">
 
           <!-- Brand demo (see assets/css/demo/demo.css) -->
@@ -96,7 +96,7 @@
               </div>
 
               <div class="demo-navbar-messages nav-item dropdown mr-lg-3">
-                <a class="nav-link dropdown-toggle hide-arrow" href="#" data-toggle="dropdown">
+                <!-- <a class="nav-link dropdown-toggle hide-arrow" href="#" data-toggle="dropdown">
                   <i class="ion ion-ios-mail navbar-icon align-middle"></i>
                   <span class="badge badge-primary badge-dot indicator"></span>
                   <span class="d-lg-none align-middle">&nbsp; Messages</span>
@@ -148,7 +148,7 @@
                   </div>
 
                   <a href="javascript:void(0)" class="d-block text-center text-light small p-2 my-1">Show all messages</a>
-                </div>
+                </div> -->
               </div>
 
               <!-- Divider -->
@@ -158,7 +158,7 @@
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                   <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
                     <img src="assets/img/avatars/1.png" alt class="d-block ui-w-30 rounded-circle">
-                    <span class="px-1 mr-lg-2 ml-2 ml-lg-0">Mike Greene</span>
+                    <span class="px-1 mr-lg-2 ml-2 ml-lg-0"><?php echo $nome ?></span>
                   </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
@@ -166,10 +166,9 @@
                   <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-ios-mail text-lightest"></i> &nbsp; Messages</a>
                   <a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Account settings</a>
                   <div class="dropdown-divider"></div>
-                  <a href="../config/logoff.php" class="dropdown-item"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; Log Out</a>
+                  <a href="../config/logoff.php" class="dropdown-item"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; Sair</a>
                 </div>
               </div>
             </div>
           </div>
         </nav>
-        <!-- / Layout navbar -->
